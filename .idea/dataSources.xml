@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="bssuqxjecfz1hn93hxea@bssuqxjecfz1hn93hxea-postgresql.services.clever-cloud.com" uuid="61246a75-e025-4027-b0bd-c5d3d2405356">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://bssuqxjecfz1hn93hxea-postgresql.services.clever-cloud.com/bssuqxjecfz1hn93hxea</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
