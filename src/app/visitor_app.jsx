@@ -8,6 +8,7 @@ const App = (props) => {
 
     return (
         <div>
+            <h1>Connection</h1>
             <form method={'POST'} action={"/login"}>
                 <label htmlFor={"username"}>Username</label>
                 <input id={"username"} name={"username"} type={"text"} onChange={(e)=>setUsername(e.currentTarget.value)}/>

@@ -8,7 +8,9 @@ const App = (props) => {
     const links =[{name:'Home',link:'/'},{name:'Clients',link:'/clients'}];
     return (
         <div>
+            <h1>Home</h1>
             <NavBar links={links}/>
+            <NavBar/>
             <Outlet/>
         </div>
     )
