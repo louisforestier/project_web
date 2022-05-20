@@ -7,7 +7,6 @@ const Main = ({links}) => {
         <div>
             <NavBar links={links}/>
             <NavBar/>
-            <h1>Home</h1>
             <Outlet/>
         </div>
     )

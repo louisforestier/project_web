@@ -32,7 +32,7 @@ root.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Main links={links}/>}>
-                <Route path="/" element={<App/>}></Route>
+                <Route index element={<App/>}></Route>
             </Route>
         </Routes>
     </BrowserRouter>

@@ -6,20 +6,21 @@ import NavBar from "./component/navBar";
 import Main from "./component/main";
 
 const App = (props) => {
-    const links =[{name:'Home',link:'/'},{name:'Clients',link:'/clients'}];
     return (
-        <Main links={links}/>
+        <h1>Home</h1>
     )
 }
 
 const root = ReactDOM.createRoot(
     document.getElementById("main")
 )
+const links =[{name:'Home',link:'/'},{name:'Clients',link:'/clients'}];
 
 root.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<App/>}>
+            <Route path="/" element={<Main links={links}/>}>
+                <Route index element={<App/>}></Route>
                 <Route path="clients" element={<Clients/>}/>
             </Route>
         </Routes>
