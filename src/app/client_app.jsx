@@ -5,9 +5,10 @@ import Clients from "./view/clients";
 import NavBar from "./component/navBar";
 
 const App = (props) => {
+    const links =[{name:'Home',link:'/'},{name:'Clients',link:'/clients'}];
     return (
         <div>
-            <NavBar/>
+            <NavBar links={links}/>
             <Outlet/>
         </div>
     )

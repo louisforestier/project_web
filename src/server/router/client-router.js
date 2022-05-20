@@ -2,12 +2,10 @@ const express = require('express');
 const {v4} = require('uuid');
 const router = express.Router();
 const pgConnect = require('../pgConnect');
-const {getClients} = require("../pgConnect");
-
 
 
 router.get('/', (req, res) => {
-    getClients()
+    pgConnect.getClients()
         .then((clients)=> {
             res.send(clients);
         })
