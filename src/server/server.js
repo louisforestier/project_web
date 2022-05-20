@@ -56,7 +56,6 @@ app.use('/*',(req,res,next)=> {
         })
 })
 
-//TODO: demander quoi faire quand cookie du côté client n'existe plus mais existe encore dans la bd ? trigger ?
 
 app.use('/api', apiRouter);
 

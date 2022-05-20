@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
+import Main from "./component/main";
 
 const App = (props) => {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
 
     return (
+
         <div>
             <h1>Connection</h1>
             <form method={'POST'} action={"/login"}>
@@ -24,10 +26,14 @@ const root = ReactDOM.createRoot(
     document.getElementById("main")
 )
 
+const links =[{name:'Home',link:'/'},{name:'Login',link:'/'}];
+
 root.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<App/>}></Route>
+            <Route path="/" element={<Main links={links}/>}>
+                <Route path="/" element={<App/>}></Route>
+            </Route>
         </Routes>
     </BrowserRouter>
 )
