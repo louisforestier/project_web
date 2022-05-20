@@ -28,7 +28,7 @@ const AddPlanning = ({loadPlannings}) => {
             <label> name </label>
             <input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
             <label> date </label>
-            <input type="date" value={date} onChange={(e) => setName(e.currentTarget.value)}/>
+            <input type="date" value={date} onChange={(e) => setDate(e.currentTarget.value)}/>
             <button>+</button>
         </form>
     )
