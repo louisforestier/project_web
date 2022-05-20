@@ -7,6 +7,7 @@ import NavBar from "./component/navBar";
 const App = (props) => {
     return (
         <div>
+            <h1>Home</h1>
             <NavBar/>
             <Outlet/>
         </div>
