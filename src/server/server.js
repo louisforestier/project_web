@@ -63,7 +63,7 @@ app.use('/api', apiRouter);
 
 app.get('/*', (req, res) => {
     console.log("user is ",req.user);
-    fs.readFile('public/homec.html', 'utf8', (err, html) => {
+    fs.readFile('public/home.html', 'utf8', (err, html) => {
         if (err) {
             console.error(err);
             return;
