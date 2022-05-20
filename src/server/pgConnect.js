@@ -50,7 +50,7 @@ const getTokenById = async (id) => {
     try {
         const res = await pgClient.query({
             name:"read-token-"+id,
-            text:'select id, user_id, expiration_time from token where id=$1;',
+            text:'select id, client_id, expiration_time from token where id=$1;',
             values:[id]
         });
         return res.rows[0];

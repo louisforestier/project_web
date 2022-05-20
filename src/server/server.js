@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = 3002;
 const fs = require('fs');
 let cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -20,12 +20,12 @@ app.post('/login',(req,res)=>{
     console.log(req.body);
     const {username,password} = req.body;
 
-    pgConnect.getUserByUsername(username)
-        .then((user)=>{
-            console.log(user);
-            if (user && user.password == password){
+    pgConnect.getClientByUsername(username)
+        .then((client)=>{
+            console.log(client);
+            if (client && client.password == password){
 
-                const token = {id:v4(),user:user.id,expiration_time: new Date(Date.now()+expiration_offset)};
+                const token = {id:v4(),client:client.id,expiration_time: new Date(Date.now()+expiration_offset)};
                 pgConnect.insertToken(token)
                     .then((value) => {
                         console.log(value);
@@ -43,36 +43,43 @@ app.use('/*',(req,res,next)=> {
         .then((token)=>{
             console.log(token);
             if (token && Date.now()<token.expiration_time) {
-                const userid = token.user_id;
-                pgConnect.getUserById(userid)
+                const clientId = token.client_id;
+                pgConnect.getClientById(clientId)
                     .then((user)=>{
                         req.user = user;
                         console.log("filtre ",req.user);
                         next();
                     })
             } else {
-                res.redirect('/login');
+                next();
             }
         })
 })
 
+//TODO: demander quoi faire quand cookie du côté client n'existe plus mais existe encore dans la bd ? trigger ?
 
 app.use('/api', apiRouter);
 
+
 app.get('/*', (req, res) => {
     console.log("user is ",req.user);
-    fs.readFile('public/app.html', 'utf8', (err, html) => {
+    fs.readFile('public/homec.html', 'utf8', (err, html) => {
         if (err) {
             console.error(err);
             return;
         } else {
+            let filename = 'visitor_app';
+            if (req.user)
+                filename = 'client_app';
+            console.log(filename);
             let result = (process.env.MODE !== "prod")
                 ? html
-                    .replace('$js', 'http://localhost:1234/index.js')
-                    .replace('$css', 'http://localhost:1234/index.css')
+                    .replace('$js', 'http://localhost:1234/'+filename+'.js')
+                    .replace('$css', 'http://localhost:1234/client_app.css')
                 : html
-                    .replace('$js', '/index.min.js')
-                    .replace('$css', '/index.min.css')
+                    .replace('$js', '/'+filename+'.min.js')
+                    .replace('$css', '/client_app.min.css')
+            console.log(result);
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(result);
         }
