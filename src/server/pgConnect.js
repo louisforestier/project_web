@@ -6,6 +6,7 @@ console.log("connecting to", process.env.POSTGRESQL_ADDON_URI);
 
 const pgClient = new pg.Client(process.env.POSTGRESQL_ADDON_URI);
 
+
 pgClient.connect();
 
 const getClients = async () => {
@@ -72,6 +73,18 @@ const getClientById = async (id) => {
     }
 }
 
+//PLANNING
+const getPlannings = async () => {
+    try {
+        const res = await pgClient.query({
+            name:'read-plannings',
+            text:'select * from planning'
+        });
+        return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 module.exports = {
     pgClient,
@@ -79,5 +92,6 @@ module.exports = {
     getClientByUsername,
     getTokenById,
     getClientById,
-    insertToken
+    insertToken,
+    getPlannings
 }
