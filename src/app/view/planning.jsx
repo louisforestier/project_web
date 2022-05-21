@@ -44,15 +44,13 @@ class Planning extends React.Component {
                     {
                         plannings && plannings
                             .map((planning) => {
-                                return <div>
-                                    <tr>
+                                return <tr>
                                         <td>{planning.id}</td>
                                         <td>{planning.name}</td>
                                         <td>{planning.date}</td>
-
+                                        <td><Manche planning_id={planning.id}/></td>
                                     </tr>
-                                    <tr><Manche planning_id={planning.id}/></tr>
-                                </div>
+
                             })
                     }
                     </tbody>

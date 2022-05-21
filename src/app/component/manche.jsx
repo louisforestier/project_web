@@ -4,24 +4,24 @@ class Planning extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            manches:[],
-            name: "",
-            ordre: "",
-            planning: {}
-
+            manches: [],
+            planning_id: props.planning_id
         }
+
     }
 
     componentDidMount() {
-        this.loadManche();
+        this.loadManche(this.state.planning_id);
     }
 
 
-    loadManche = () => {
-        fetch('/api/planning/manches')
+    loadManche = (planning_id) => {
+        console.log("loadManche : ", planning_id);
+        fetch('/api/planning/manches' + planning_id)
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});
+                console.log(this.state.name);
             })
     }
 

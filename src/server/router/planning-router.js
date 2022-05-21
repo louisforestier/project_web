@@ -11,8 +11,9 @@ router.get('/', (req, res) => {
         })
 })
 
-router.get('/manches', (req, res) => {
-    pgConnect.getManches()
+router.get('/manches/:id', (req, res) => {
+    console.log("planning-router : \nAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAA\n", req.params.planning_id)
+    pgConnect.getManchesByPlanningId(req.params.planning_id)
         .then((manches) => {
             res.send(manches);
         })

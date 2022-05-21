@@ -94,31 +94,18 @@ const getPlannings = async () => {
 }
 
 /******************************** MANCHE ********************************/
-const getManches = async () => {
+const getManchesByPlanningId = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-manches',
-            text:'select * from manche'
+            text:'select * from manche where id=$1;',
+            values:[id]
         });
         return res.rows;
     } catch (err) {
         console.error(err);
     }
 }
-
-//Nouvelle inscription dans une manche
-// const insertInscription = async({id,client,expiration_time}) => {
-//     try {
-//         const res = await pgClient.query({
-//             text:'INSERT INTO insription (planning_id, manche_id, client_id)' +
-//                 'VALUES ($1,$2,$3) RETURNING *;',
-//             values:[planning_id, manche_id, client_id]
-//         });
-//         return res.rows[0];
-//     } catch (err) {
-//         console.error(err);
-//     }
-// }
 
 /******************************** ********************************/
 module.exports = {
@@ -129,6 +116,5 @@ module.exports = {
     getClientById,
     insertToken,
     getPlannings,
-    getManches,
-    //insertInscription
+    getManchesByPlanningId
 }
