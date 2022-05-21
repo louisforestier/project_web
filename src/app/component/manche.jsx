@@ -1,35 +1,34 @@
 import React from "react";
-import Add_planning from "../component/add_planning";
-import Manche from "../component/manche";
-
 
 class Planning extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            plannings: [],
+            manches:[],
             name: "",
-            date: new Date()
+            ordre: "",
+            planning: {}
+
         }
     }
 
     componentDidMount() {
-        this.loadPlanning();
+        this.loadManche();
     }
 
 
-    loadPlanning = () => {
-        fetch('/api/planning')
+    loadManche = () => {
+        fetch('/api/planning/manches')
             .then((res) => res.json())
-            .then((planningResponse) => {
-                this.setState({plannings: planningResponse});
+            .then((mancheResponse) => {
+                this.setState({manches: mancheResponse});
             })
     }
 
 
 
     render() {
-        const {plannings} = this.state;
+        const {manches} = this.state;
         return (
             <div>
                 <table>
@@ -37,27 +36,24 @@ class Planning extends React.Component {
                     <tr>
                         <td>id</td>
                         <td>name</td>
-                        <td>date</td>
+                        <td>ordre</td>
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        plannings && plannings
-                            .map((planning) => {
+                        manches && manches
+                            .map((manche) => {
                                 return <div>
                                     <tr>
-                                        <td>{planning.id}</td>
-                                        <td>{planning.name}</td>
-                                        <td>{planning.date}</td>
-
+                                        <td>{manche.id}</td>
+                                        <td>{manche.name}</td>
+                                        <td>{manche.ordre}</td>
                                     </tr>
-                                    <tr><Manche planning_id={planning.id}/></tr>
                                 </div>
                             })
                     }
                     </tbody>
                 </table>
-                <Add_planning />
             </div>
         )
     }

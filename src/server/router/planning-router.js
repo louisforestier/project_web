@@ -11,6 +11,14 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/manches', (req, res) => {
+    pgConnect.getManches()
+        .then((manches) => {
+            res.send(manches);
+        })
+})
+
+
 
 module.exports={
     planningRouter:router

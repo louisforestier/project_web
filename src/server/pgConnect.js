@@ -9,6 +9,8 @@ const pgClient = new pg.Client(process.env.POSTGRESQL_ADDON_URI);
 
 pgClient.connect();
 
+/******************************** CLIENT ********************************/
+//Récupère tous les clients présents dans la table client
 const getClients = async () => {
     try {
         const res = await pgClient.query({
@@ -21,6 +23,7 @@ const getClients = async () => {
     }
 }
 
+//Récupère tous les clients de la base de données à partir de leur nom
 const getClientByUsername = async (username) => {
     try {
         const res = await pgClient.query({
@@ -34,6 +37,7 @@ const getClientByUsername = async (username) => {
     }
 }
 
+//Ajout d'un token dans dans la base de données (table Token)
 const insertToken = async({id,client,expiration_time}) => {
     try {
         const res = await pgClient.query({
@@ -47,6 +51,7 @@ const insertToken = async({id,client,expiration_time}) => {
     }
 }
 
+//Récupère un token grâce à un id
 const getTokenById = async (id) => {
     try {
         const res = await pgClient.query({
@@ -60,6 +65,7 @@ const getTokenById = async (id) => {
     }
 }
 
+//Récupère un client grâce à son id
 const getClientById = async (id) => {
     try {
         const res = await pgClient.query({
@@ -73,7 +79,8 @@ const getClientById = async (id) => {
     }
 }
 
-//PLANNING
+/******************************** PLANNING ********************************/
+//Récupère tous les plannings présents dans la table Planning
 const getPlannings = async () => {
     try {
         const res = await pgClient.query({
@@ -86,6 +93,34 @@ const getPlannings = async () => {
     }
 }
 
+/******************************** MANCHE ********************************/
+const getManches = async () => {
+    try {
+        const res = await pgClient.query({
+            name:'read-manches',
+            text:'select * from manche'
+        });
+        return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+//Nouvelle inscription dans une manche
+// const insertInscription = async({id,client,expiration_time}) => {
+//     try {
+//         const res = await pgClient.query({
+//             text:'INSERT INTO insription (planning_id, manche_id, client_id)' +
+//                 'VALUES ($1,$2,$3) RETURNING *;',
+//             values:[planning_id, manche_id, client_id]
+//         });
+//         return res.rows[0];
+//     } catch (err) {
+//         console.error(err);
+//     }
+// }
+
+/******************************** ********************************/
 module.exports = {
     pgClient,
     getClients,
@@ -93,5 +128,7 @@ module.exports = {
     getTokenById,
     getClientById,
     insertToken,
-    getPlannings
+    getPlannings,
+    getManches,
+    //insertInscription
 }
