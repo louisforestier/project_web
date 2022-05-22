@@ -21,7 +21,6 @@ class Planning extends React.Component {
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});
-                console.log(this.state.name);
             })
     }
 
