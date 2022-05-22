@@ -3,13 +3,27 @@ const {v4} = require('uuid');
 const router = express.Router();
 const pgConnect = require('../pgConnect');
 
-
+//Obtenir tous les plannings
 router.get('/', (req, res) => {
     pgConnect.getPlannings()
         .then((plannings)=> {
             res.send(plannings);
         })
 })
+
+//Ajouter un planning
+router.post('/addPlanning', (req, res)=>{
+    const {name, date} = req.body;
+    console.log("POST of /addPlanning : resBody = ", name , " and ", date);
+    const planning = {id:v4(), name:name, date:date};
+    pgConnect.insertPlanning(planning)
+        .then((value) => {
+            console.log(value);
+            res.send(value);
+        })
+
+})
+
 
 //Get les manches pour un certain planning
 router.get('/manches/:planning_id', (req, res) => {

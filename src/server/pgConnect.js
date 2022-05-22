@@ -93,6 +93,20 @@ const getPlannings = async () => {
     }
 }
 
+//Ajout d'un planning dans la base de données
+const insertPlanning = async({id,name,date}) => {
+    try {
+        const res = await pgClient.query({
+            text:'INSERT INTO planning (id, name, date)' +
+                'VALUES ($1,$2,$3) RETURNING *;',
+            values:[id,name, date]
+        });
+        return res.rows[0];
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 /******************************** MANCHE ********************************/
 const getManchesByPlanningId = async (id) => {
     try {
@@ -131,6 +145,7 @@ module.exports = {
     getClientById,
     insertToken,
     getPlannings,
+    insertPlanning,
     getManchesByPlanningId,
     getInscriptionsByPlanningIdAndMancheId
 }
