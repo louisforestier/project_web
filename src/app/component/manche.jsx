@@ -1,4 +1,5 @@
 import React from "react";
+import Inscription from "./inscription";
 
 class Manche extends React.Component {
     constructor(props) {
@@ -46,7 +47,7 @@ class Manche extends React.Component {
                                         <td>{manche.id}</td>
                                         <td>{manche.name}</td>
                                         <td>{manche.ordre}</td>
-                                        {/*<td><Inscription manche_id={planning.id}/></td>*/}
+                                        <td><Inscription manche_id={manche.id} planning_id={manche.planning_id}/></td>
                                     </tr>
                             })
                     }

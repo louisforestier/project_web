@@ -107,7 +107,22 @@ const getManchesByPlanningId = async (id) => {
     }
 }
 
-/******************************** ********************************/
+/******************************** INSCRIPTION ********************************/
+const getInscriptionsByPlanningIdAndMancheId = async (planning_id, manche_id) => {
+    try {
+        const res = await pgClient.query({
+            name:'read-inscriptions',
+            text:'select username from client, inscription where inscription.planning_id=$1 and inscription.manche_id=$2 and client.id=inscription.user_id;',
+            values:[planning_id, manche_id]
+        });
+        return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+/********************************  ********************************/
 module.exports = {
     pgClient,
     getClients,
@@ -116,5 +131,6 @@ module.exports = {
     getClientById,
     insertToken,
     getPlannings,
-    getManchesByPlanningId
+    getManchesByPlanningId,
+    getInscriptionsByPlanningIdAndMancheId
 }
