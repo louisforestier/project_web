@@ -1,6 +1,6 @@
 import React from "react";
 
-class Planning extends React.Component {
+class Manche extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class Planning extends React.Component {
 
     loadManche = (planning_id) => {
         console.log("loadManche : ", planning_id);
-        fetch('/api/planning/manches' + planning_id)
+        fetch('/api/planning/manches/' + planning_id)
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});
@@ -42,13 +42,12 @@ class Planning extends React.Component {
                     {
                         manches && manches
                             .map((manche) => {
-                                return <div>
-                                    <tr>
+                                return <tr>
                                         <td>{manche.id}</td>
                                         <td>{manche.name}</td>
                                         <td>{manche.ordre}</td>
+                                        {/*<td><Inscription manche_id={planning.id}/></td>*/}
                                     </tr>
-                                </div>
                             })
                     }
                     </tbody>
@@ -58,4 +57,4 @@ class Planning extends React.Component {
     }
 }
 
-export default Planning;
+export default Manche;

@@ -98,7 +98,7 @@ const getManchesByPlanningId = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-manches',
-            text:'select * from manche where id=$1;',
+            text:'select * from manche where planning_id=$1;',
             values:[id]
         });
         return res.rows;
