@@ -25,7 +25,6 @@ class Inscription extends React.Component {
                 console.log("result from request loadInscription: ",inscriptionResponse);
                 this.setState({inscriptions: inscriptionResponse});
             })
-        console.log("inscriptions in state : ", this.state.inscriptions);
     }
 
 
