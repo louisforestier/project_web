@@ -79,6 +79,20 @@ const getClientById = async (id) => {
     }
 }
 
+//Ajoute un client dans la table Client
+const insertClient = async({id,username,password,admin,firstname,lastname}) => {
+    try {
+        const res = await pgClient.query({
+            text: 'INSERT INTO client (id, username, password, admin, first_name, last_name)' +
+                'VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;',
+            values: [id,username,password,admin,firstname,lastname]
+        });
+        return res.rows[0];
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 /******************************** PLANNING ********************************/
 //Récupère tous les plannings présents dans la table Planning
 const getPlannings = async () => {
@@ -130,6 +144,7 @@ module.exports = {
     getTokenById,
     getClientById,
     insertToken,
+    insertClient,
     getPlannings,
     getManchesByPlanningId,
     getInscriptionsByPlanningIdAndMancheId

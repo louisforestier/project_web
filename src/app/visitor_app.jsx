@@ -2,13 +2,13 @@ import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
 import Main from "./component/main";
+import Signup from "./view/signup";
 
 const App = (props) => {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
 
     return (
-
         <div>
             <h1>Connection</h1>
             <form method={'POST'} action={"/login"}>
@@ -26,13 +26,14 @@ const root = ReactDOM.createRoot(
     document.getElementById("main")
 )
 
-const links =[{name:'Home',link:'/'},{name:'Login',link:'/'}];
+const links =[{name:'Home',link:'/'},{name:'Login',link:'/'},{name: 'Sign Up',link: '/signup'}];
 
 root.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Main links={links}/>}>
                 <Route index element={<App/>}></Route>
+                <Route path='signup' element={<Signup/>}/>
             </Route>
         </Routes>
     </BrowserRouter>
