@@ -42,14 +42,19 @@ app.use('/*',(req,res,next)=> {
     pgConnect.getTokenById(tokenID)
         .then((token)=>{
             console.log(token);
-            if (token && Date.now()<token.expiration_time) {
-                const clientId = token.client_id;
-                pgConnect.getClientById(clientId)
-                    .then((user)=>{
-                        req.user = user;
-                        console.log("filtre ",req.user);
-                        next();
-                    })
+            if (token ) {
+                if (Date.now()<token.expiration_time) {
+                    const clientId = token.client_id;
+                    pgConnect.getClientById(clientId)
+                        .then((user) => {
+                            req.user = user;
+                            console.log("filtre ", req.user);
+                            next();
+                        })
+                } else {
+                    pgConnect.deleteTokenById(token.id)
+                        .then(()=>next())
+                }
             } else {
                 next();
             }
