@@ -40,8 +40,6 @@ router.get('/manches/:planning_id', (req, res) => {
 router.get('/manches/inscriptions/:planning_id/:manche_id', (req, res) => {
     let planning_id = req.params.planning_id;
     const manche_id = req.params.manche_id;
-    console.log("GET inscription : planning_id : ", planning_id);
-    console.log("GET inscription : manche_id : ", manche_id);
     pgConnect.getInscriptionsByPlanningIdAndMancheId(planning_id, manche_id)
         .then((inscriptions) => {
             console.log("inscriptions after request : ", inscriptions);
@@ -49,7 +47,17 @@ router.get('/manches/inscriptions/:planning_id/:manche_id', (req, res) => {
         })
 })
 
-
+//ajouter l'utilisateur courant à la liste des inscrits dans une manche
+router.post('/manches/inscription/:planning_id/:manche_id', (req, res)=>{
+    const current_user = req.user.id;
+    let manche_id = req.params.manche_id;
+    let planning_id = req.params.planning_id;
+    pgConnect.insertUserToInscription(current_user, manche_id, planning_id)
+        .then((inscription)=>{
+            console.log("newest inscription after request : ", inscription);
+            res.send(inscription);
+        })
+})
 
 module.exports={
     planningRouter:router

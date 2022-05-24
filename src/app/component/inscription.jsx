@@ -17,8 +17,6 @@ class Inscription extends React.Component {
 
 
     loadInscription = (planning_id, manche_id) => {
-
-        console.log("loadInscription : ", planning_id, ' and ', manche_id);
         fetch('/api/planning/manches/inscriptions/' + planning_id + '/' + manche_id)
             .then((res) => res.json())
             .then((inscriptionResponse) => {
@@ -27,7 +25,22 @@ class Inscription extends React.Component {
             })
     }
 
+    addToManche(e){
+        e.preventDefault();
 
+        let currentmanche = {manche_id:this.state.manche_id, planning_id:this.state.planning_id};
+        console.log("currentmanche => ", currentmanche);
+        let body = JSON.stringify(currentmanche);
+        fetch('/api/planning/manches/inscription/' + currentmanche.planning_id + '/' + currentmanche.manche_id, {
+            method:"POST",
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: body
+        })
+        this.loadInscription(this.state.planning_id, this.state.manche_id);
+    }
 
     render() {
         const {inscriptions} = this.state;
@@ -43,11 +56,12 @@ class Inscription extends React.Component {
                     {
                         inscriptions && inscriptions
                             .map((inscription) => {
-                                return <tr>
+                                return  <tr>
                                     <td>{inscription.username}</td>
                                 </tr>
                             })
                     }
+                        <tr><button onClick={this.addToManche.bind(this)}>S'inscrire</button></tr>
                     </tbody>
                 </table>
             </div>

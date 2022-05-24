@@ -25,8 +25,6 @@ class Manche extends React.Component {
             })
     }
 
-
-
     render() {
         const {manches} = this.state;
         return (
@@ -43,7 +41,7 @@ class Manche extends React.Component {
                     {
                         manches && manches
                             .map((manche) => {
-                                return <tr>
+                                return<tr>
                                         <td>{manche.id}</td>
                                         <td>{manche.name}</td>
                                         <td>{manche.ordre}</td>
