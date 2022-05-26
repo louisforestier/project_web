@@ -23,7 +23,8 @@ const AddPlanning = ({loadPlannings}) => {
                     return res.json()
                 })
                 .then((planningReponse) => {
-                    //loadPlannings()
+                    console.log("add_planning : planningReponse = ", planningReponse)
+                    loadPlannings()
                     //this.setState({plannings:planningReponse})
                     //setPlannings(planningReponse)
                 })

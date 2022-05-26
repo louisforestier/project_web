@@ -55,7 +55,7 @@ class Planning extends React.Component {
                     }
                     </tbody>
                 </table>
-                <Add_planning />
+                <Add_planning load={this.loadPlanning()}/>
             </div>
         )
     }
