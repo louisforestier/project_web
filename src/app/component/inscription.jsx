@@ -47,11 +47,6 @@ class Inscription extends React.Component {
         return (
             <div>
                 <table>
-                    <thead>
-                    <tr>
-                        <td>name</td>
-                    </tr>
-                    </thead>
                     <tbody>
                     {
                         inscriptions && inscriptions

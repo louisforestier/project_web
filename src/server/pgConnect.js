@@ -135,6 +135,19 @@ const getManchesByPlanningId = async (id) => {
     }
 }
 
+const insertManche = async({id, name, ordre, planning_id}) => {
+    try {
+        const res = await pgClient.query({
+            text:'INSERT INTO manche (id, name, ordre, planning_id)' +
+                'VALUES ($1,$2,$3,$4) RETURNING *;',
+            values:[id,name, ordre, planning_id]
+        });
+        return res.rows[0];
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 /******************************** INSCRIPTION ********************************/
 const getInscriptionsByPlanningIdAndMancheId = async (planning_id, manche_id) => {
     try {
@@ -175,6 +188,7 @@ module.exports = {
     getPlannings,
     insertPlanning,
     getManchesByPlanningId,
+    insertManche,
     getInscriptionsByPlanningIdAndMancheId,
     insertUserToInscription
 }

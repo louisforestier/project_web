@@ -33,11 +33,14 @@ class Planning extends React.Component {
         return (
             <div>
                 <table>
+                    <caption>PLANNINGS</caption>
                     <thead>
                     <tr>
                         <td>id</td>
                         <td>name</td>
                         <td>date</td>
+                        <td>MANCHES</td>
+                        <td>INSCRITS</td>
                     </tr>
                     </thead>
                     <tbody>

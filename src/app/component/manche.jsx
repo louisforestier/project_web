@@ -1,5 +1,6 @@
 import React from "react";
 import Inscription from "./inscription";
+import AddManche from "./add_manche";
 
 class Manche extends React.Component {
     constructor(props) {
@@ -17,7 +18,6 @@ class Manche extends React.Component {
 
 
     loadManche = (planning_id) => {
-        console.log("loadManche : ", planning_id);
         fetch('/api/planning/manches/' + planning_id)
             .then((res) => res.json())
             .then((mancheResponse) => {
@@ -51,6 +51,7 @@ class Manche extends React.Component {
                     }
                     </tbody>
                 </table>
+                <AddManche load={this.loadManche} planning={this.state.planning_id}/>
             </div>
         )
     }
