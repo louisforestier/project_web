@@ -90,6 +90,20 @@ const getClientById = async (id) => {
     }
 }
 
+//Ajoute un client dans la table Client
+const insertClient = async({id,username,password,admin,firstname,lastname}) => {
+    try {
+        const res = await pgClient.query({
+            text: 'INSERT INTO client (id, username, password, admin, first_name, last_name)' +
+                'VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;',
+            values: [id,username,password,admin,firstname,lastname]
+        });
+        return res.rows[0];
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 /******************************** PLANNING ********************************/
 //Récupère tous les plannings présents dans la table Planning
 const getPlannings = async () => {
@@ -99,6 +113,20 @@ const getPlannings = async () => {
             text:'select * from planning'
         });
         return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+//Ajout d'un planning dans la base de données
+const insertPlanning = async({id,name,date}) => {
+    try {
+        const res = await pgClient.query({
+            text:'INSERT INTO planning (id, name, date)' +
+                'VALUES ($1,$2,$3) RETURNING *;',
+            values:[id,name, date]
+        });
+        return res.rows[0];
     } catch (err) {
         console.error(err);
     }
@@ -118,6 +146,19 @@ const getManchesByPlanningId = async (id) => {
     }
 }
 
+const insertManche = async({id, name, ordre, planning_id}) => {
+    try {
+        const res = await pgClient.query({
+            text:'INSERT INTO manche (id, name, ordre, planning_id)' +
+                'VALUES ($1,$2,$3,$4) RETURNING *;',
+            values:[id,name, ordre, planning_id]
+        });
+        return res.rows[0];
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 /******************************** INSCRIPTION ********************************/
 const getInscriptionsByPlanningIdAndMancheId = async (planning_id, manche_id) => {
     try {
@@ -127,6 +168,19 @@ const getInscriptionsByPlanningIdAndMancheId = async (planning_id, manche_id) =>
             values:[planning_id, manche_id]
         });
         return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+const insertUserToInscription = async (current_user, manche_id, planning_id) => {
+    try {
+        const res = await pgClient.query({
+            text:'INSERT INTO inscription (planning_id, manche_id, user_id)' +
+                'VALUES ($1,$2,$3) RETURNING *;',
+            values:[planning_id,manche_id,current_user]
+        });
+        return res.rows[0];
     } catch (err) {
         console.error(err);
     }
@@ -142,7 +196,11 @@ module.exports = {
     getClientById,
     insertToken,
     deleteTokenById,
+    insertClient,
     getPlannings,
+    insertPlanning,
     getManchesByPlanningId,
-    getInscriptionsByPlanningIdAndMancheId
+    insertManche,
+    getInscriptionsByPlanningIdAndMancheId,
+    insertUserToInscription
 }

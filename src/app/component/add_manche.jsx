@@ -1,17 +1,15 @@
 import React, {useState} from "react";
 
 
-const AddPlanning = ({loadPlannings}) => {
+const AddManche = ({load, planning}) => {
     const [name, setName] = useState("");
-    const [date, setDate] = useState(new Date());
-    const [plannings, setPlannings] = useState([])
-
+    const [ordre, setOrdre] = useState("");
 
     const validate = (e)=>{
         e.preventDefault();
-        if (name !=="") {
-            let bodyLocal = JSON.stringify({name, date});
-            fetch('/api/planning/addPlanning', {
+        if (name !=="" && ordre !== "") {
+            let bodyLocal = JSON.stringify({name, ordre, planning});
+            fetch('/api/planning/manches/addManche', {
                 method: "POST",
                 body: bodyLocal,
                 headers: {
@@ -22,29 +20,21 @@ const AddPlanning = ({loadPlannings}) => {
                 .then((res) => {
                     return res.json()
                 })
-                .then((planningReponse) => {
-                    console.log("add_planning : planningReponse = ", planningReponse)
-                    loadPlannings()
-                    //this.setState({plannings:planningReponse})
-                    //setPlannings(planningReponse)
+                .then((mancheReponse) => {
+                    load(planning)
                 })
         }
     }
 
     return (
         <form onSubmit={(e)=>{validate(e)}}>
+            <legend>Add a manche</legend>
             <label> name </label>
             <input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
-            <label> date </label>
-            <input type="date" onChange={(e) => setDate(new Date(e.currentTarget.value))}/>
+            <label> ordre </label>
+            <input type="number" value={ordre} onChange={(e) => setOrdre(e.currentTarget.value)}/>
             <input type="submit" value="+"></input>
         </form>
     )
 }
-export default AddPlanning;
-
-
-
-
-
-
+export default AddManche;

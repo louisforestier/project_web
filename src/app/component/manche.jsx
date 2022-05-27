@@ -1,12 +1,14 @@
 import React from "react";
 import Inscription from "./inscription";
+import AddManche from "./add_manche";
 
 class Manche extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             manches: [],
-            planning_id: props.planning_id
+            planning_id: props.planning_id,
+            isAdmin: props.isAdmin
         }
 
     }
@@ -17,15 +19,12 @@ class Manche extends React.Component {
 
 
     loadManche = (planning_id) => {
-        console.log("loadManche : ", planning_id);
         fetch('/api/planning/manches/' + planning_id)
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});
             })
     }
-
-
 
     render() {
         const {manches} = this.state;
@@ -43,16 +42,20 @@ class Manche extends React.Component {
                     {
                         manches && manches
                             .map((manche) => {
-                                return <tr>
+                                return<tr>
                                         <td>{manche.id}</td>
                                         <td>{manche.name}</td>
                                         <td>{manche.ordre}</td>
-                                        <td><Inscription manche_id={manche.id} planning_id={manche.planning_id}/></td>
+                                        <td><Inscription manche_id={manche.id} planning_id={manche.planning_id} isAdmin={this.state.isAdmin}/></td>
                                     </tr>
                             })
                     }
                     </tbody>
                 </table>
+                {
+                    this.state.isAdmin ? <AddManche load={this.loadManche} planning={this.state.planning_id}/>
+                        : <></>
+                }
             </div>
         )
     }
