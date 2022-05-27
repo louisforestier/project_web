@@ -78,7 +78,6 @@ app.get('/*', (req, res) => {
                 : html
                     .replace('$js', '/'+filename+'.min.js')
                     .replace('$css', '/client_app.min.css')
-            console.log(result);
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(result);
         }

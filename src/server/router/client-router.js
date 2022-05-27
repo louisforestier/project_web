@@ -16,10 +16,10 @@ router.post('/',(req,res)=>{
     if (password == cpassword) {
         const client = {id:v4(),username:username,password:password,admin:false,firstname:firstname,lastname:lastname}
         pgConnect.insertClient(client)
-            .then((value) => {
-                res.redirect('/')
+            .then(() => {
+                res.redirect('/signin')
             })
-    }else res.redirect('/')
+    }
 
 })
 
