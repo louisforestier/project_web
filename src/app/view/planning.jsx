@@ -67,7 +67,7 @@ class Planning extends React.Component {
                     </tbody>
                 </table>
                 {
-                this.state.isAdmin ? <Add_planning load={this.loadPlanning()}/>
+                this.state.isAdmin ? <Add_planning load={this.loadPlanning}/>
                     : <></>
                 }
             </div>

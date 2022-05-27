@@ -48,6 +48,7 @@ app.use('/*',(req,res,next)=> {
                     pgConnect.getClientById(clientId)
                         .then((user) => {
                             req.user = user;
+                            console.log("filtre",req.originalUrl);
                             console.log("filtre ", req.user);
                             next();
                         })
