@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
 import Main from "./component/main";
 import Signup from "./view/signup";
-
 import Signin from "./view/signin";
 import Planning from "./view/planning";
 
@@ -20,7 +19,7 @@ root.render(
             <Route path="/" element={<Main links={links}/>}>
                 <Route index element={<Planning/>}/>
                 <Route path='signup' element={<Signup/>}/>
-                <Route path="/signin" element={<Signin/>}/>
+                <Route path="signin" element={<Signin/>}/>
             </Route>
         </Routes>
     </BrowserRouter>

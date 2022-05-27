@@ -65,6 +65,17 @@ const getTokenById = async (id) => {
     }
 }
 
+const deleteTokenById = async (id) => {
+    try {
+        const res = await pgClient.query({
+            text:'delete from token where id =$1;',
+            values:[id]
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 //Récupère un client grâce à son id
 const getClientById = async (id) => {
     try {
@@ -184,6 +195,7 @@ module.exports = {
     getTokenById,
     getClientById,
     insertToken,
+    deleteTokenById,
     insertClient,
     getPlannings,
     insertPlanning,
