@@ -22,6 +22,24 @@ router.post('/addPlanning', (req, res)=>{
 
 })
 
+//l'utilisateur courant est-il un administrateur ?
+router.get('/isAdmin', (req, res)=> {
+    if(req.user)
+        res.send(req.user.admin);
+    else
+        res.send(false);
+})
+
+//l'utilisateur courant est-il un client ?
+router.get('/isClient', (req, res)=> {
+    try{
+        if(req.user)
+            res.send(true)
+    }catch (err) {
+        console.error(err);
+    }
+
+})
 
 //Get les manches pour un certain planning
 router.get('/manches/:planning_id', (req, res) => {

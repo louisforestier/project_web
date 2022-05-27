@@ -7,7 +7,8 @@ class Manche extends React.Component {
         super(props);
         this.state = {
             manches: [],
-            planning_id: props.planning_id
+            planning_id: props.planning_id,
+            isAdmin: props.isAdmin
         }
 
     }
@@ -45,13 +46,16 @@ class Manche extends React.Component {
                                         <td>{manche.id}</td>
                                         <td>{manche.name}</td>
                                         <td>{manche.ordre}</td>
-                                        <td><Inscription manche_id={manche.id} planning_id={manche.planning_id}/></td>
+                                        <td><Inscription manche_id={manche.id} planning_id={manche.planning_id} isAdmin={this.state.isAdmin}/></td>
                                     </tr>
                             })
                     }
                     </tbody>
                 </table>
-                <AddManche load={this.loadManche} planning={this.state.planning_id}/>
+                {
+                    this.state.isAdmin ? <AddManche load={this.loadManche} planning={this.state.planning_id}/>
+                        : <></>
+                }
             </div>
         )
     }

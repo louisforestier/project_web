@@ -9,12 +9,14 @@ class Planning extends React.Component {
         this.state = {
             plannings: [],
             name: "",
-            date: new Date()
+            date: new Date(),
+            isAdmin: false
         }
     }
 
     componentDidMount() {
         this.loadPlanning();
+        this.isAdmin();
     }
 
 
@@ -26,7 +28,13 @@ class Planning extends React.Component {
             })
     }
 
-
+    isAdmin = () => {
+        fetch('/api/planning/isAdmin')
+            .then((res)=> res.json())
+            .then((isAdminResponse)=>{
+                this.setState({isAdmin: isAdminResponse});
+            })
+    }
 
     render() {
         const {plannings} = this.state;
@@ -51,14 +59,17 @@ class Planning extends React.Component {
                                         <td>{planning.id}</td>
                                         <td>{planning.name}</td>
                                         <td>{planning.date}</td>
-                                        <td><Manche planning_id={planning.id}/></td>
+                                        <td><Manche planning_id={planning.id} isAdmin={this.state.isAdmin}/></td>
                                     </tr>
 
                             })
                     }
                     </tbody>
                 </table>
-                <Add_planning load={this.loadPlanning()}/>
+                {
+                this.state.isAdmin ? <Add_planning load={this.loadPlanning()}/>
+                    : <></>
+                }
             </div>
         )
     }
