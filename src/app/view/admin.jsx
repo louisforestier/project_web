@@ -1,5 +1,6 @@
 import React from "react";
 import Add_planning from "../component/add_planning";
+import DelUser from "../component/delete_user";
 
 
 class Admin extends React.Component {
@@ -12,12 +13,14 @@ class Admin extends React.Component {
             plannings : [],
             manches : [],
             planning_name: "",
-            planning_date: new Date()
+            planning_date: new Date(),
+            checked: false
         }
     }
 
     componentDidMount() {
         this.loadList();
+        this.loadUsers();
     }
 
 
@@ -32,6 +35,15 @@ class Admin extends React.Component {
             .then((planningResponse) => {this.state({plannings:planningResponse})})
     }
 
+    loadUsers = () => {
+        console.log("LOAD USERS");
+        fetch('/api/clients/' + this.state.checked)
+            .then((res) => res.json())
+            .then((tokenResponse) => {
+                this.setState({tokens: tokenResponse});
+            })
+    }
+
     suppr(client) {
         fetch('/api/clients/' + client.id, {
             method: 'DELETE'
@@ -43,6 +55,11 @@ class Admin extends React.Component {
             })
     }
 
+    handleChange = () => {
+        this.setState({checked: !this.state.checked});
+        this.loadUsers();
+    };
+
     render() {
         const {clients} = this.state;
         const {plannings} = this.state;
@@ -53,7 +70,11 @@ class Admin extends React.Component {
                 <h1>Enroll a client</h1>
                 is coming
                 <h1>Disconnect a client</h1>
-                is coming
+                <label>
+                    Display expired users ?
+                    <input type="checkbox" checked={this.state.checked} onChange={this.handleChange} />
+                </label>
+                <DelUser load={this.loadUsers} tokens={this.state.tokens}/>
             </div>
         )
     }

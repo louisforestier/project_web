@@ -23,6 +23,26 @@ router.post('/',(req,res)=>{
 
 })
 
+router.get('/:checked', (req, res)=> {
+    if (req.params.checked)
+        pgConnect.getTokens()
+            .then((tokens) => {
+                console.log("router tokens")
+                res.send(tokens);
+            })
+    else
+        pgConnect.getUnexpiredToken()
+            .then((tokens) => {
+                console.log("router unexpired get")
+                res.send(tokens);
+            })
+})
+
+router.delete('/:id', (req, res, next) => {
+    pgConnect.deleteTokenById(req.params.id)
+        .then(()=>next());
+})
+
 module.exports={
     clientRouter:router
 }
