@@ -6,13 +6,7 @@ class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tokens: [],
-            token_id : "",
-            clients : [],
-            plannings : [],
-            manches : [],
-            planning_name: "",
-            planning_date: new Date()
+            tokens: []
         }
     }
 
