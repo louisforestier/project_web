@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
-import Clients from "./view/clients";
 import Main from "./component/main";
 import Planning from "./view/planning";
+import Admin from "./view/admin";
 
 const root = ReactDOM.createRoot(
     document.getElementById("main")

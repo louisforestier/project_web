@@ -1,25 +1,35 @@
 import React from "react";
+import Add_planning from "../component/add_planning";
 
 
 class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            clients: []
+            tokens: [],
+            token_id : "",
+            clients : [],
+            plannings : [],
+            manches : [],
+            planning_name: "",
+            planning_date: new Date()
         }
     }
 
     componentDidMount() {
-        this.loadClients();
+        this.loadList();
     }
 
 
-    loadClients = () => {
+    loadList = () => {
         fetch('/api/clients')
             .then((res) => res.json())
             .then((clientsReponse) => {
                 this.setState({clients: clientsReponse});
             })
+        fetch('api/planning')
+            .then((res) => res.json())
+            .then((planningResponse) => {this.state({plannings:planningResponse})})
     }
 
     suppr(client) {
@@ -35,27 +45,15 @@ class Admin extends React.Component {
 
     render() {
         const {clients} = this.state;
+        const {plannings} = this.state;
         return (
             <div>
-                <table>
-                    <thead>
-                    <tr>
-                        <td>id</td>
-                        <td>username</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        clients && clients
-                            .map((client) => {
-                                return <tr>
-                                    <td>{client.id}</td>
-                                    <td>{client.username}</td>
-                                </tr>
-                            })
-                    }
-                    </tbody>
-                </table>
+                <h1>Create planning</h1>
+                <Add_planning />
+                <h1>Enroll a client</h1>
+                is coming
+                <h1>Disconnect a client</h1>
+                is coming
             </div>
         )
     }
