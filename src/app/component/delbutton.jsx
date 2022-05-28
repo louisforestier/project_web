@@ -14,9 +14,7 @@ const DelButton = ({load,url,id})=> {
     }
 
     return(
-        <button onClick={() => {
-            del()
-        }}>x</button>
+        <button onClick={del}>x</button>
     )
 }
 

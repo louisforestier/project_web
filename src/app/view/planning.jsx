@@ -8,9 +8,7 @@ class Planning extends React.Component {
         super(props);
         this.state = {
             plannings: [],
-            name: "",
-            date: new Date(),
-            isAdmin: false
+            mode: props.mode
         }
     }
 
@@ -30,8 +28,8 @@ class Planning extends React.Component {
 
     isAdmin = () => {
         fetch('/api/planning/isAdmin')
-            .then((res)=> res.json())
-            .then((isAdminResponse)=>{
+            .then((res) => res.json())
+            .then((isAdminResponse) => {
                 this.setState({isAdmin: isAdminResponse});
             })
     }
@@ -44,11 +42,9 @@ class Planning extends React.Component {
                     <caption>PLANNINGS</caption>
                     <thead>
                     <tr>
-                        <td>id</td>
                         <td>name</td>
                         <td>date</td>
                         <td>MANCHES</td>
-                        <td>INSCRITS</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,20 +52,15 @@ class Planning extends React.Component {
                         plannings && plannings
                             .map((planning) => {
                                 return <tr>
-                                        <td>{planning.id}</td>
-                                        <td>{planning.name}</td>
-                                        <td>{planning.date}</td>
-                                        <td><Manche planning_id={planning.id} isAdmin={this.state.isAdmin}/></td>
-                                    </tr>
+                                    <td>{planning.name}</td>
+                                    <td>{planning.date}</td>
+                                    <td><Manche planningId={planning.id} mode={this.state.mode}/></td>
+                                </tr>
 
                             })
                     }
                     </tbody>
                 </table>
-                {
-                this.state.isAdmin ? <Add_planning load={this.loadPlanning}/>
-                    : <></>
-                }
             </div>
         )
     }

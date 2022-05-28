@@ -54,7 +54,7 @@ router.get('/manches/:planning_id', (req, res) => {
 router.get('/manches/inscriptions/:planning_id/:manche_id', (req, res) => {
     let planning_id = req.params.planning_id;
     const manche_id = req.params.manche_id;
-    pgConnect.getInscriptionsByPlanningIdAndMancheId(planning_id, manche_id)
+    pgConnect.getInscriptionCountByPlanningIdAndMancheId(planning_id, manche_id)
         .then((inscriptions) => {
             res.send(inscriptions);
         })
@@ -76,7 +76,7 @@ router.post('/manches/inscription/:planning_id/:manche_id', (req, res)=>{
     }
 })
 
-router.post('/manches/addManche', (req, res)=>{
+router.post('/manches', (req, res)=>{
     const new_manche = req.body;
     const manche_json = {id:v4(), name:new_manche.name, ordre:new_manche.ordre, planning_id:new_manche.planning};
     pgConnect.insertManche(manche_json)

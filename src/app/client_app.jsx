@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Main links={links}/>}>
-                <Route index element={<Planning/>}></Route>
+                <Route index element={<Planning mode={"client"}/>}></Route>
                 <Route path="clients" element={<Clients/>}/>
             </Route>
         </Routes>
