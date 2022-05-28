@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import DelButton from "./delbutton";
 
-const DelUser = ({load, tokens})=> {
+const DelUser = ({load, tokens, checked})=> {
 
     return(
         <div>
@@ -18,7 +18,7 @@ const DelUser = ({load, tokens})=> {
                             return<tr>
                                 <td>{token.username}</td>
                                 <td>{token.expiration_time}</td>
-                                <td><DelButton load={load} id={token.id} url={'/api/clients/'}/></td>
+                                <td><DelButton load={load} id={token.id} url={'/api/clients/'} checked={checked}/></td>
                             </tr>
                         })
                 }

@@ -35,9 +35,9 @@ class Admin extends React.Component {
             .then((planningResponse) => {this.state({plannings:planningResponse})})
     }
 
-    loadUsers = () => {
+    loadUsers = (checked) => {
         console.log("LOAD USERS");
-        fetch('/api/clients/' + this.state.checked)
+        fetch('/api/clients/' + checked)
             .then((res) => res.json())
             .then((tokenResponse) => {
                 this.setState({tokens: tokenResponse});
@@ -57,7 +57,7 @@ class Admin extends React.Component {
 
     handleChange = () => {
         this.setState({checked: !this.state.checked});
-        this.loadUsers();
+        this.loadUsers(this.state.checked);
     };
 
     render() {
@@ -74,7 +74,7 @@ class Admin extends React.Component {
                     Display expired users ?
                     <input type="checkbox" checked={this.state.checked} onChange={this.handleChange} />
                 </label>
-                <DelUser load={this.loadUsers} tokens={this.state.tokens}/>
+                <DelUser load={this.loadUsers} tokens={this.state.tokens} checked={this.state.checked}/>
             </div>
         )
     }
