@@ -1,4 +1,5 @@
 import React from "react";
+import {colours} from "nodemon/lib/config/defaults";
 
 
 class Signup extends React.Component {
@@ -16,18 +17,18 @@ class Signup extends React.Component {
 
     add = (e) => {
         e.preventDefault();
-        let bodyLocal = JSON.stringify({firstname:firstname,lastname:lastname,
-            username:username,password:password,cpassword:cpassword});
-        fetch('/api/client',{
+        let bodyLocal = JSON.stringify({firstname:this.state.firstname,lastname:this.state.lastname,
+            username:this.state.username,password:this.state.password,cpassword:this.state.cpassword});
+        console.log(bodyLocal)
+        fetch('/api/clients',{
             method:"POST",
             body:bodyLocal,
             headers: {
-                'Accept':'application/json',
+                'Accept':'application/jsson',
                 'Content-Type':'application/json'
             }
         })
-            .then((res)=>{return res.json()})
-            .then((reponse)=>{})
+            .then((res)=>{})
     }
 
     render() {
