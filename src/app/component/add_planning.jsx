@@ -1,10 +1,23 @@
 import React, {useState} from "react";
 
-
-const AddPlanning = ({loadPlannings}) => {
+const AddPlanning = () => {
     const [name, setName] = useState("");
     const [date, setDate] = useState(new Date());
-    const [roundName,setRoundName] = useState("");
+    const [rounds,setRounds] = useState([]);
+
+    const add_round = () => {
+        setRounds(s => {return [...s,{name:""}]})
+    }
+
+    const changeName = e => {
+        e.preventDefault()
+        const idx = e.target.id
+        setRounds(s => {
+            const newArr = s.slice()
+            newArr[idx].name = e.target.value
+            return newArr
+        })
+    }
 
     const validate = (e)=>{
         e.preventDefault();
@@ -22,29 +35,26 @@ const AddPlanning = ({loadPlannings}) => {
         }
     }
 
-    const add_round = (e) => {
-        console.log("add_round")
-        return (
-            <div>
-            <label> Round name </label>
-            <input type="text" value={roundName} onChange={(e) => setRoundName(e.currentTarget.value)}/>
-            </div>
-        )
-    }
-
     return (
         <form onSubmit={(e)=>{validate(e)}}>
             <label> name </label>
-            <input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
+            <input required type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
             <label> date </label>
-            <input type="date" value={date} onChange={(e) => setDate(new Date(e.currentTarget.value))}/>
+            <input required type="date" onChange={(e) => setDate(new Date(e.currentTarget.value))}/>
             <button onClick={add_round}>Add round</button>
             <br/>
+            {rounds && rounds .map((round,i) => {
+                return <div>
+                    <label> Round name </label>
+                    <input required type="text" value={round.name} id={i} onChange={changeName}/>
+                </div>
+            })}
             <input type="submit" value="submit"></input>
         </form>
     )
 }
 export default AddPlanning;
+
 
 
 
