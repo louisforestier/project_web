@@ -16,7 +16,7 @@ class Manche extends React.Component {
 
 
     loadManche = (planning_id) => {
-        fetch('/api/planning/manches/' + planning_id)
+        fetch('/api/plannings/manches/' + planning_id)
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});
@@ -24,20 +24,20 @@ class Manche extends React.Component {
     }
 
     addToManche = (value) => {
-        let currentmanche = {manche_id: value, planning_id: this.state.planningId};
-        console.log("currentmanche => ", currentmanche);
-        let body = JSON.stringify(currentmanche);
-        fetch('/api/planning/manches/inscription/' + currentmanche.planning_id + '/' + currentmanche.manche_id, {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: body
-        })
-            .then(()=> this.loadManche(this.state.planningId))
+        const inscription = {planningId:this.state.planningId,mancheId: value};
+        if (inscription.mancheId && inscription.planningId) {
+            let body = JSON.stringify(inscription);
+            fetch('/api/inscriptions/', {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: body
+            })
+                .then(()=> this.loadManche(this.state.planningId))
+        }
     }
-
 
     render() {
         const {manches} = this.state;
@@ -55,15 +55,19 @@ class Manche extends React.Component {
                     {
                         manches && manches
                             .map((manche) => {
-                                return<tr>
-                                        <td>{manche.name}</td>
-                                        <td>{manche.ordre}</td>
-                                        <td>{manche.number}</td>
+                                return <tr>
+                                    <td>{manche.name}</td>
+                                    <td>{manche.ordre}</td>
+                                    <td>{manche.number}</td>
                                     {
                                         this.state.mode !== "visitor" &&
-                                        <td><button value={manche.id} onClick={e => this.addToManche(e.currentTarget.value) }>S'inscrire</button></td>
+                                        <td>
+                                            <button value={manche.id}
+                                                    onClick={e => this.addToManche(e.currentTarget.value)}>S'inscrire
+                                            </button>
+                                        </td>
                                     }
-                                    </tr>
+                                </tr>
                             })
                     }
                     </tbody>

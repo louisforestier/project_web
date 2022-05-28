@@ -9,7 +9,7 @@ const AddManche = ({load, planning}) => {
         e.preventDefault();
         if (name !=="" && ordre !== "") {
             let bodyLocal = JSON.stringify({name, ordre, planning});
-            fetch('/api/planning/manches', {
+            fetch('/api/plannings/manches', {
                 method: "POST",
                 body: bodyLocal,
                 headers: {
