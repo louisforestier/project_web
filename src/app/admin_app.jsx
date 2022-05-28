@@ -8,13 +8,14 @@ import Planning from "./view/planning";
 const root = ReactDOM.createRoot(
     document.getElementById("main")
 )
-const links =[{name:'Planning',link:'/'}];
+const links =[{name:'Planning',link:'/'},{name:'Admin',link:'/admin'}];
 
 root.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Main links={links}/>}>
                 <Route index element={<Planning/>}></Route>
+                <Route path="admin" element={<Admin />}/>
             </Route>
         </Routes>
     </BrowserRouter>
