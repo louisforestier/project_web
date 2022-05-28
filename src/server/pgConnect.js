@@ -137,7 +137,7 @@ const getManchesByPlanningId = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-manches',
-            text:'select id, name, ordre, count(id) as number from manche, inscription where inscription.planning_id=$1 and inscription.planning_id=$1 and inscription.manche_id=manche.id group by manche.id order by ordre asc;',
+            text:'select id, name, ordre, coalesce(count(inscription.manche_id),0) as number from manche left join inscription on manche.id=inscription.manche_id where manche.planning_id=$1 group by manche.id order by ordre asc;',
             values:[id]
         });
         return res.rows;
