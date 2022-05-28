@@ -24,7 +24,7 @@ class Manche extends React.Component {
     }
 
     addToManche = (value) => {
-        let currentmanche = {manche_id: value, planning_id: this.state.planning_id};
+        let currentmanche = {manche_id: value, planning_id: this.state.planningId};
         console.log("currentmanche => ", currentmanche);
         let body = JSON.stringify(currentmanche);
         fetch('/api/planning/manches/inscription/' + currentmanche.planning_id + '/' + currentmanche.manche_id, {

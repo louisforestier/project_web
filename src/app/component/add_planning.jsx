@@ -4,8 +4,7 @@ import React, {useState} from "react";
 const AddPlanning = ({loadPlannings}) => {
     const [name, setName] = useState("");
     const [date, setDate] = useState(new Date());
-    const [plannings, setPlannings] = useState([])
-
+    const [roundName,setRoundName] = useState("");
 
     const validate = (e)=>{
         e.preventDefault();
@@ -19,16 +18,18 @@ const AddPlanning = ({loadPlannings}) => {
                     'Content-Type': 'application/json'
                 }
             })
-                .then((res) => {
-                    return res.json()
-                })
-                .then((planningReponse) => {
-                    console.log("add_planning : planningReponse = ", planningReponse)
-                    loadPlannings()
-                    //this.setState({plannings:planningReponse})
-                    //setPlannings(planningReponse)
-                })
+                .then()
         }
+    }
+
+    const add_round = (e) => {
+        console.log("add_round")
+        return (
+            <div>
+            <label> Round name </label>
+            <input type="text" value={roundName} onChange={(e) => setRoundName(e.currentTarget.value)}/>
+            </div>
+        )
     }
 
     return (
@@ -36,8 +37,10 @@ const AddPlanning = ({loadPlannings}) => {
             <label> name </label>
             <input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
             <label> date </label>
-            <input type="date" onChange={(e) => setDate(new Date(e.currentTarget.value))}/>
-            <input type="submit" value="+"></input>
+            <input type="date" value={date} onChange={(e) => setDate(new Date(e.currentTarget.value))}/>
+            <button onClick={add_round}>Add round</button>
+            <br/>
+            <input type="submit" value="submit"></input>
         </form>
     )
 }

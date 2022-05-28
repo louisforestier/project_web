@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 })
 
 //Ajouter un planning
-router.post('/addPlanning', (req, res)=>{
+router.post('/', (req, res)=>{
     const new_planning = req.body;
     const planning = {id:v4(), name:new_planning.name, date:new_planning.date};
     pgConnect.insertPlanning(planning)

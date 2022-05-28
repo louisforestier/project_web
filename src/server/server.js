@@ -75,7 +75,9 @@ app.get('/*', (req, res) => {
         } else {
             let filename = 'visitor_app';
             if (req.user)
-                filename = 'client_app';
+                if (req.user.admin)
+                    filename = 'admin_app';
+                else filename = 'client_app';
             console.log(filename);
             let result = (process.env.MODE !== "prod")
                 ? html
