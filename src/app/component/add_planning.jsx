@@ -10,7 +10,7 @@ const AddPlanning = ({loadPlannings}) => {
         e.preventDefault();
         if (name !=="") {
             let bodyLocal = JSON.stringify({name, date});
-            fetch('/api/planning/', {
+            fetch('/api/plannings/', {
                 method: "POST",
                 body: bodyLocal,
                 headers: {

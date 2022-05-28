@@ -173,12 +173,12 @@ const getInscriptionCountByPlanningIdAndMancheId = async (planning_id, manche_id
     }
 }
 
-const insertUserToInscription = async (current_user, manche_id, planning_id) => {
+const insertUserToInscription = async ({clientId,planningId,mancheId}) => {
     try {
         const res = await pgClient.query({
-            text:'INSERT INTO inscription (planning_id, manche_id, user_id)' +
+            text:'INSERT INTO inscription (planning_id, manche_id, client_id)' +
                 'VALUES ($1,$2,$3) RETURNING *;',
-            values:[planning_id,manche_id,current_user]
+            values:[planningId,mancheId,clientId]
         });
         return res.rows[0];
     } catch (err) {

@@ -1,5 +1,7 @@
 import React from "react";
 import Add_planning from "../component/add_planning";
+import Enroll_client from "../component/enroll_client";
+import EnrollClient from "../component/enroll_client";
 
 
 class Admin extends React.Component {
@@ -27,9 +29,9 @@ class Admin extends React.Component {
             .then((clientsReponse) => {
                 this.setState({clients: clientsReponse});
             })
-        fetch('api/planning')
+        fetch('api/plannings')
             .then((res) => res.json())
-            .then((planningResponse) => {this.state({plannings:planningResponse})})
+            .then((planningResponse) => {this.setState({plannings:planningResponse})})
     }
 
     suppr(client) {
@@ -50,8 +52,7 @@ class Admin extends React.Component {
             <div>
                 <h1>Create planning</h1>
                 <Add_planning />
-                <h1>Enroll a client</h1>
-                is coming
+                <EnrollClient/>
                 <h1>Disconnect a client</h1>
                 is coming
             </div>
