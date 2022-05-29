@@ -1,6 +1,6 @@
 import React from "react";
 
-const DelButton = ({load,url,id})=> {
+const DelButton = ({load,id, url})=> {
 
     const del = () => {
         fetch(url+id, {

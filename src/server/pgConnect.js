@@ -65,12 +65,38 @@ const getTokenById = async (id) => {
     }
 }
 
+//Récupère tous les tokens
+const getTokens = async () => {
+    try {
+        const res = await pgClient.query({
+            name:'read-all-tokens',
+            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id'
+        });
+        return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+const getUnexpiredToken = async () => {
+    try {
+        const res = await pgClient.query({
+            name:'read-unexpired-tokens',
+            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and client.admin != true and expiration_time > clock_timestamp()'
+        });
+        return res.rows;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 const deleteTokenById = async (id) => {
     try {
         const res = await pgClient.query({
             text:'delete from token where id =$1;',
             values:[id]
         });
+        console.log("deleteToken done");
     } catch (err) {
         console.error(err);
     }
@@ -173,12 +199,12 @@ const getInscriptionCountByPlanningIdAndMancheId = async (planning_id, manche_id
     }
 }
 
-const insertUserToInscription = async (current_user, manche_id, planning_id) => {
+const insertUserToInscription = async ({clientId,planningId,mancheId}) => {
     try {
         const res = await pgClient.query({
-            text:'INSERT INTO inscription (planning_id, manche_id, user_id)' +
+            text:'INSERT INTO inscription (planning_id, manche_id, client_id)' +
                 'VALUES ($1,$2,$3) RETURNING *;',
-            values:[planning_id,manche_id,current_user]
+            values:[planningId,mancheId,clientId]
         });
         return res.rows[0];
     } catch (err) {
@@ -195,6 +221,8 @@ module.exports = {
     getTokenById,
     getClientById,
     insertToken,
+    getTokens,
+    getUnexpiredToken,
     deleteTokenById,
     insertClient,
     getPlannings,

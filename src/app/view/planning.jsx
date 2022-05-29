@@ -1,5 +1,4 @@
 import React from "react";
-import Add_planning from "../component/add_planning";
 import Manche from "../component/manche";
 
 
@@ -14,23 +13,14 @@ class Planning extends React.Component {
 
     componentDidMount() {
         this.loadPlanning();
-        this.isAdmin();
     }
 
 
     loadPlanning = () => {
-        fetch('/api/planning')
+        fetch('/api/plannings')
             .then((res) => res.json())
             .then((planningResponse) => {
                 this.setState({plannings: planningResponse});
-            })
-    }
-
-    isAdmin = () => {
-        fetch('/api/planning/isAdmin')
-            .then((res) => res.json())
-            .then((isAdminResponse) => {
-                this.setState({isAdmin: isAdminResponse});
             })
     }
 

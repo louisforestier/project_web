@@ -59,22 +59,6 @@ router.get('/manches/inscriptions/:planning_id/:manche_id', (req, res) => {
         })
 })
 
-//ajouter l'utilisateur courant à la liste des inscrits dans une manche
-router.post('/manches/inscription/:planning_id/:manche_id', (req, res)=>{
-    if(req.user.id) {
-        const current_user = req.user.id;
-        let manche_id = req.params.manche_id;
-        let planning_id = req.params.planning_id;
-        pgConnect.insertUserToInscription(current_user, manche_id, planning_id)
-            .then((inscription) => {
-                res.send(inscription);
-            })
-    }
-    else{
-        console.log("ERROR LOG : planning-router.js => router.post add current user to registered people for a manche");
-    }
-})
-
 router.post('/manches', (req, res)=>{
     const new_manche = req.body;
     const manche_json = {id:v4(), name:new_manche.name, ordre:new_manche.ordre, planning_id:new_manche.planning};
