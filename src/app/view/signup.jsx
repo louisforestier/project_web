@@ -1,6 +1,4 @@
 import React from "react";
-import {colours} from "nodemon/lib/config/defaults";
-
 
 class Signup extends React.Component {
     constructor(props) {
@@ -24,11 +22,14 @@ class Signup extends React.Component {
             method:"POST",
             body:bodyLocal,
             headers: {
-                'Accept':'application/jsson',
+                'Accept':'application/json',
                 'Content-Type':'application/json'
             }
         })
-            .then((res)=>{})
+            .then((res)=>{
+                if (res.status==200)
+                    window.location ='/signin';
+            })
     }
 
     render() {
