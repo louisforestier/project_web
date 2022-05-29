@@ -70,7 +70,7 @@ const getTokens = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-all-tokens',
-            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and token.id != $1',
+            text:'select token.id,  username, expiration_time from client, token where client.id = token.client_id and token.id != $1',
             values:[id]
         });
         return res.rows;
@@ -83,7 +83,7 @@ const getUnexpiredToken = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-unexpired-tokens',
-            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and expiration_time > clock_timestamp() and token.id != $1',
+            text:'select token.id, username, expiration_time from client, token where client.id = token.client_id and expiration_time > clock_timestamp() and token.id != $1',
             values:[id]
         });
         return res.rows;

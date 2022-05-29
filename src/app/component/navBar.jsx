@@ -11,7 +11,7 @@ const NavBar = ({links}) => {
                 {
                     links && links.
                     map(({name,link})=>{
-                        return <NavLink activeClassName="active" to={link}>{name}</NavLink>
+                        return <span><NavLink activeClassName="active" to={link}>{name}</NavLink></span>
                     })
                 }
             </nav>

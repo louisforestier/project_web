@@ -31,24 +31,21 @@ adminApiRouter.get('/tokens', (req, res)=> {
     const tokenID = req.cookies.MON_TOKEN;
         pgConnect.getTokens(tokenID)
             .then((tokens) => {
-                console.log("router tokens")
                 res.send(tokens);
             })
 })
 
-adminApiRouter.get('/unexpiredtokens', (req, res)=> {
+adminApiRouter.get('/tokens/connected', (req, res)=> {
     const tokenID = req.cookies.MON_TOKEN;
     pgConnect.getUnexpiredToken(tokenID)
         .then((tokens) => {
-            console.log("router unexpired get")
             res.send(tokens);
         })
 })
 
-adminApiRouter.delete('/token/:id', (req, res, next) => {
-    console.log("router.delete");
+adminApiRouter.delete('/token/:id', (req, res) => {
     pgConnect.deleteTokenById(req.params.id)
-        .then();
+        .then(() => {res.sendStatus(200)})
 })
 
 module.exports={

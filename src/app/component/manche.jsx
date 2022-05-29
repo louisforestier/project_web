@@ -46,9 +46,9 @@ class Manche extends React.Component {
                 <table>
                     <thead>
                     <tr>
-                        <td>name</td>
-                        <td>ordre</td>
-                        <td>number</td>
+                        <td>Name</td>
+                        <td>Ordre</td>
+                        <td>Number of participants</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@ class Manche extends React.Component {
                                         this.state.mode !== "visitor" &&
                                         <td>
                                             <button value={manche.id}
-                                                    onClick={e => this.addToManche(e.currentTarget.value)}>S'inscrire
+                                                    onClick={e => this.addToManche(e.currentTarget.value)}>Enroll
                                             </button>
                                         </td>
                                     }
