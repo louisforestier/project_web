@@ -35,7 +35,7 @@ router.get('/tokens', (req, res)=> {
             })
 })
 
-router.get('/unexpiredtokens', (req, res)=> {
+router.get('/tokens/connected', (req, res)=> {
     const tokenID = req.cookies.MON_TOKEN;
     pgConnect.getUnexpiredToken(tokenID)
         .then((tokens) => {
@@ -44,10 +44,10 @@ router.get('/unexpiredtokens', (req, res)=> {
         })
 })
 
-router.delete('/token/:id', (req, res, next) => {
-    console.log("router.delete");
+router.delete('/tokens/:id', (req, res) => {
+    console.log("router.delete",req.params.id);
     pgConnect.deleteTokenById(req.params.id)
-        .then();
+        .then(() => {res.sendStatus(200)})
 })
 
 module.exports={

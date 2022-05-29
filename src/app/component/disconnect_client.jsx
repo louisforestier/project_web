@@ -1,13 +1,12 @@
 import React from "react";
 import DelButton from "./delbutton";
 
-class DelUser extends React.Component {
+class DisconnectClients extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             tokens: [],
             checked: true
-
         }
     }
 
@@ -17,9 +16,8 @@ class DelUser extends React.Component {
 
     loadUsers = () => {
         console.log("LOAD USERS with ", this.state.checked);
-        if(this.state.checked === false){
-            console.log("loadUser vaut false");
-            fetch('/api/clients/unexpiredtokens')
+        if(this.state.checked){
+            fetch('/api/clients/tokens')
                 .then((res) => res.json())
                 .then((tokenResponse) => {
                     this.setState({tokens: tokenResponse});
@@ -27,7 +25,7 @@ class DelUser extends React.Component {
         }
         else {
             console.log("loadUser vaut true");
-            fetch('/api/clients/tokens')
+            fetch('/api/clients/tokens/connected')
                 .then((res) => res.json())
                 .then((tokenResponse) => {
                     this.setState({tokens: tokenResponse});
@@ -60,10 +58,10 @@ class DelUser extends React.Component {
                     {
                         tokens && tokens
                             .map((token) => {
-                                return<tr>
+                                return <tr>
                                     <td>{token.username}</td>
                                     <td>{token.expiration_time}</td>
-                                    <td><DelButton load={this.loadUsers} id={token.id} url={'/api/clients/token/'}/></td>
+                                    <td><DelButton load={this.loadUsers} id={token.id} url={'/api/clients/tokens/'}/></td>
                                 </tr>
                             })
                     }
@@ -75,4 +73,4 @@ class DelUser extends React.Component {
 
 }
 
-export default DelUser;
+export default DisconnectClients;

@@ -3,12 +3,11 @@ import React from "react";
 const DelButton = ({load,id, url})=> {
 
     const del = () => {
+        console.log(url+id)
         fetch(url+id, {
             method: "DELETE"
         })
-            .then((res)=>res.json())
-            .then((eventsReponse) => {
-                console.log(eventsReponse);
+            .then(() => {
                 load();
             })
     }
