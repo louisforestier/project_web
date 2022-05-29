@@ -24,19 +24,20 @@ router.post('/',(req,res)=>{
 })
 
 router.get('/:checked', (req, res)=> {
-    if (req.params.checked === false)
+    if (req.params.checked === "false") {
         pgConnect.getTokens()
             .then((tokens) => {
                 console.log("router tokens")
                 res.send(tokens);
             })
-    else
-        console.log(req.params.checked)
+    }
+    else {
         pgConnect.getUnexpiredToken()
             .then((tokens) => {
                 console.log("router unexpired get")
                 res.send(tokens);
             })
+    }
 })
 
 router.delete('/:id', (req, res, next) => {
