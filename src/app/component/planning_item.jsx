@@ -23,7 +23,7 @@ const PlanningItem = ({planning,mode}) => {
     return (
         <li className={liclass} onClick={display}>
             <span>{planning.name}</span>
-            <span>{planning.date}</span>
+            <span>{planning.date.substring(0,10)}</span>
             <ul className={ulclass}>
                 <li><Manche planningId={planning.id} mode={mode}/></li>
             </ul>
