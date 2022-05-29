@@ -82,7 +82,7 @@ const getUnexpiredToken = async () => {
     try {
         const res = await pgClient.query({
             name:'read-unexpired-tokens',
-            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and expiration_time > clock_timestamp()'
+            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and client.admin != true and expiration_time > clock_timestamp()'
         });
         return res.rows;
     } catch (err) {
