@@ -1,7 +1,6 @@
 const express = require('express');
 const {v4} = require('uuid');
 const visitorApiRouter = express.Router();
-const clientApiRouter = express.Router();
 const adminApiRouter = express.Router();
 
 const pgConnect = require('../pgConnect');
