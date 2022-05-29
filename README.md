@@ -15,7 +15,9 @@ Dans ce répertoire, effectuez la commande suivante : npm install
 Pour accéder à la base de données hébergée sur CleverCloud, les informations de connexion se trouvent dans le fichier ".env".
 Pour lancer le projet, toujours depuis IntelliJ, faites un clic droit sur le fichier package.json -> Show npm Scripts. 
 Un nouvel encart apparaît d'où vous pourrez lancer start-web (client) et start-dev (serveur).  
-Il est aussi possible de build l'application React avec le script build puis de lancer le serveur avec start. 
+Il est aussi possible de build l'application React avec le script build puis de lancer le serveur avec start.
+Les fichiers de build ont déjà été générés et sont présents dans l'archive. 
+Si vous vous lancer le serveur en ligne de commande, n'oubliez pas de mettre à jour la variable d'environnement MODE à prod (MODE=prod). 
 L'adresse de l'application est localhost:3002.   
 Vous pouvez ouvrir votre navigateur à cet adresse et vous aurez accès à notre application.   
 
