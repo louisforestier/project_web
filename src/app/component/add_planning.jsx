@@ -30,15 +30,20 @@ const AddPlanning = () => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
-            })
+            }).then(() => {
+                setName("")
+                setDate(new Date())
+                setRounds([])
+                }
+            )
         }
     }
 
     return (
         <form onSubmit={(e)=>{validate(e)}}>
-            <label> name </label>
+            <label> Name </label>
             <input required type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
-            <label> date </label>
+            <label> Date </label>
             <input required type="date" onChange={(e) => setDate(new Date(e.currentTarget.value))}/>
             <button onClick={add_round}>Add round</button>
             <br/>
