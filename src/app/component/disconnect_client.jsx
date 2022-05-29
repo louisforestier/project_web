@@ -6,7 +6,7 @@ class DisconnectClients extends React.Component {
         super(props);
         this.state = {
             tokens: [],
-            checked: true
+            checked: false
         }
     }
 
@@ -24,7 +24,7 @@ class DisconnectClients extends React.Component {
                 })
         }
         else {
-            console.log("loadUser vaut true");
+            console.log("loadUser vaut false");
             fetch('/api/clients/tokens/connected')
                 .then((res) => res.json())
                 .then((tokenResponse) => {
@@ -34,8 +34,9 @@ class DisconnectClients extends React.Component {
     }
 
     handleChange = () => {
-        this.setState({checked: !this.state.checked,});
-        this.loadUsers();
+        console.log("avant",this.state.checked)
+        this.setState({checked: !this.state.checked},() => this.loadUsers());
+        console.log("apres",this.state.checked)
     };
 
     render() {
@@ -45,7 +46,7 @@ class DisconnectClients extends React.Component {
                 <h1>Disconnect a client</h1>
                 <label>
                     Display expired users ?
-                    <input type="checkbox" defaultChecked={this.state.checked} onChange={this.handleChange} />
+                    <input type="checkbox" defaultChecked={this.state.checked} onClick={this.handleChange} />
                 </label>
                 <table>
                     <thead>
