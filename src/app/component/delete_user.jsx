@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import DelButton from "./delbutton";
+import DelTokenButton from "./delTokenButton";
 
 const DelUser = ({load, tokens, checked})=> {
 
@@ -18,7 +18,7 @@ const DelUser = ({load, tokens, checked})=> {
                             return<tr>
                                 <td>{token.username}</td>
                                 <td>{token.expiration_time}</td>
-                                <td><DelButton load={load} id={token.id} url={'/api/clients/'} checked={checked}/></td>
+                                <td><DelTokenButton load={load} id={token.id} url={'/api/clients/delete/'} checked={checked}/></td>
                             </tr>
                         })
                 }

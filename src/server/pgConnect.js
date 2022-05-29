@@ -96,6 +96,7 @@ const deleteTokenById = async (id) => {
             text:'delete from token where id =$1;',
             values:[id]
         });
+        console.log("deleteToken done");
     } catch (err) {
         console.error(err);
     }

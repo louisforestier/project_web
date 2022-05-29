@@ -32,8 +32,8 @@ class Admin extends React.Component {
     }
 
     loadUsers = (checked) => {
-        console.log("LOAD USERS");
-        fetch('/api/clients/' + checked)
+        console.log("LOAD USERS with ", checked);
+        fetch('/api/clients/tokens/' + checked)
             .then((res) => res.json())
             .then((tokenResponse) => {
                 this.setState({tokens: tokenResponse});
