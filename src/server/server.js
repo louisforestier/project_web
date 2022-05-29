@@ -9,6 +9,9 @@ app.use(express.urlencoded());
 const pgConnect = require('./pgConnect');
 const {apiRouter} = require("./router/app-router");
 const {v4} = require("uuid");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 app.use(express.json());
 app.use('/', express.static('dist'));
 app.use('/', express.static('public'));
@@ -19,19 +22,29 @@ app.post('/login',(req,res)=>{
     console.log('post login');
     console.log(req.body);
     const {username,password} = req.body;
-
     pgConnect.getClientByUsername(username)
         .then((client)=>{
             console.log(client);
-            if (client && client.password == password){
-
-                const token = {id:v4(),client:client.id,expiration_time: new Date(Date.now()+expiration_offset)};
-                pgConnect.insertToken(token)
-                    .then((value) => {
-                        console.log(value);
-                        res.cookie('MON_TOKEN',value.id);
-                        res.redirect('/');
-                    })
+            if (client){
+                bcrypt.compare(password,client.password,(err,result)=>{
+                    if (err)
+                        throw err;
+                    console.log("bcrypt compare");
+                    if (result){
+                        console.log("authentification success");
+                        const token = {id:v4(),client:client.id,expiration_time: new Date(Date.now()+expiration_offset)};
+                        pgConnect.insertToken(token)
+                            .then((value) => {
+                                console.log(value);
+                                res.cookie('MON_TOKEN',value.id);
+                                res.redirect('/');
+                            })
+                    }
+                    else{
+                        console.log("authentification failed.");
+                        res.redirect('/signin');
+                    }
+                })
             }
         });
 })

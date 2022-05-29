@@ -1,8 +1,9 @@
 const express = require('express');
 const {v4} = require('uuid');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const pgConnect = require('../pgConnect');
-
+const saltRounds = 10;
 
 router.get('/', (req, res) => {
     pgConnect.getClients()
@@ -14,11 +15,13 @@ router.get('/', (req, res) => {
 router.post('/',(req,res)=>{
     const {firstname,lastname,username,password,cpassword} = req.body
     if (password == cpassword) {
-        const client = {id:v4(),username:username,password:password,admin:false,firstname:firstname,lastname:lastname}
-        pgConnect.insertClient(client)
-            .then(() => {
-                res.sendStatus(200);
-            })
+        bcrypt.hash(password,saltRounds,(err,hash)=>{
+            const client = {id:v4(),username:username,password:hash,admin:false,firstname:firstname,lastname:lastname}
+            pgConnect.insertClient(client)
+                .then(() => {
+                    res.sendStatus(200);
+                })
+        })
     }
 
 })
