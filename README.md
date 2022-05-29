@@ -17,6 +17,7 @@ Pour lancer le projet, toujours depuis IntelliJ, faites un clic droit sur le fic
 Un nouvel encart apparaît d'où vous pourrez lancer start-web (client) et start-dev (serveur).   
 L'adresse de l'application est localhost:3002.   
 Vous pouvez ouvrir votre navigateur à cet adresse et vous aurez accès à notre application.   
+Nous avons réussi à utiliser parcel build mais nous n'avons pas réussi à relier les fichiers générés au back. 
 
 # 2. Présentation
 Lorsque vous arriver sur l'application, vous pouvez voir le planning complet ainsi que les manches et le nombre de personnes inscrites. 
@@ -42,7 +43,8 @@ Dans notre application, trois vues sont possible :
 - visitor_app : la vue par défaut lors du lancement de l'application qui affiche le planning et les manches.
 - client_app : la vue réservée aux clients pour pouvoir s'inscrire aux manches.
 - admin_app : la vue de l'administrateur qui dispose d'une page supplémentaire spécifique à son rôle.
-Ces vues sont décrites avec plus de précision dans la section suivante.   
+Ces vues sont décrites avec plus de précision dans la section suivante.
+Nous n'avons pas eu le temps de faire des retours d'erreurs propres pour les formulaires, notamment pour la connexion.
 
 ## Vues et Composants (src/app, src/app/view, src/app/component)
 La première vue est celle réservée aux visiteurs (vistor_app). Elle affiche le planning ainsi que les manches et le nombre d'inscrit à chacune d'elle. 

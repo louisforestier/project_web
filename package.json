@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "targets": {
+    "visitor": {
+      "source": "src/app/visitor_app.jsx"
+    },
+    "client": {
+      "source": "src/app/client_app.jsx"
+    },
+    "admin": {
+      "source": "src/app/admin_app.jsx"
+    }
+  },
+
   "scripts": {
     "start-web": "parcel src/app/client_app.jsx src/app/visitor_app.jsx src/app/admin_app.jsx --hmr-port 9998",
     "start-dev": "nodemon src/server/server.js",
-    "build": "parcel build --target frontend",
+    "build": "parcel build --target visitor --target client --target admin",
     "start": "node src/server/server.js"
   },
   "author": "",
