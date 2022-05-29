@@ -15,7 +15,7 @@ const getClients = async () => {
     try {
         const res = await pgClient.query({
             name:'read-clients',
-            text:'select * from client'
+            text:'select first_name, last_name from client'
         });
         return res.rows;
     } catch (err) {
@@ -188,19 +188,6 @@ const insertManche = async({id, name, ordre, planning_id}) => {
 }
 
 /******************************** INSCRIPTION ********************************/
-const getInscriptionCountByPlanningIdAndMancheId = async (planning_id, manche_id) => {
-    try {
-        const res = await pgClient.query({
-            name:'read-inscriptions',
-            text:'select count(*) from inscription where inscription.planning_id=$1 and inscription.manche_id=$2;',
-            values:[planning_id, manche_id]
-        });
-        return res.rows;
-    } catch (err) {
-        console.error(err);
-    }
-}
-
 const insertUserToInscription = async ({clientId,planningId,mancheId}) => {
     try {
         const res = await pgClient.query({
@@ -215,7 +202,6 @@ const insertUserToInscription = async ({clientId,planningId,mancheId}) => {
 }
 
 
-/********************************  ********************************/
 module.exports = {
     pgClient,
     getClients,
@@ -231,6 +217,5 @@ module.exports = {
     insertPlanning,
     getManchesByPlanningId,
     insertManche,
-    getInscriptionCountByPlanningIdAndMancheId,
     insertUserToInscription
 }

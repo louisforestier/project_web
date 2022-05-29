@@ -1,18 +1,19 @@
 const express = require('express');
 const {v4} = require('uuid');
-const router = express.Router();
+const visitorApiRouter = express.Router();
+const adminApiRouter = express.Router();
 const bcrypt = require('bcrypt');
 const pgConnect = require('../pgConnect');
 const saltRounds = 10;
 
-router.get('/', (req, res) => {
+adminApiRouter.get('/', (req, res) => {
     pgConnect.getClients()
         .then((clients)=> {
             res.send(clients);
         })
 })
 
-router.post('/',(req,res)=>{
+visitorApiRouter.post('/',(req,res)=>{
     const {firstname,lastname,username,password,cpassword} = req.body
     if (password == cpassword) {
         bcrypt.hash(password,saltRounds,(err,hash)=>{
@@ -26,7 +27,7 @@ router.post('/',(req,res)=>{
 
 })
 
-router.get('/tokens', (req, res)=> {
+adminApiRouter.get('/tokens', (req, res)=> {
     const tokenID = req.cookies.MON_TOKEN;
         pgConnect.getTokens(tokenID)
             .then((tokens) => {
@@ -35,7 +36,7 @@ router.get('/tokens', (req, res)=> {
             })
 })
 
-router.get('/unexpiredtokens', (req, res)=> {
+adminApiRouter.get('/unexpiredtokens', (req, res)=> {
     const tokenID = req.cookies.MON_TOKEN;
     pgConnect.getUnexpiredToken(tokenID)
         .then((tokens) => {
@@ -44,12 +45,13 @@ router.get('/unexpiredtokens', (req, res)=> {
         })
 })
 
-router.delete('/token/:id', (req, res, next) => {
+adminApiRouter.delete('/token/:id', (req, res, next) => {
     console.log("router.delete");
     pgConnect.deleteTokenById(req.params.id)
         .then();
 })
 
 module.exports={
-    clientRouter:router
+    visitorClientRouter:visitorApiRouter,
+    adminClientRouter:adminApiRouter
 }

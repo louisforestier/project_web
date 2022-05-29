@@ -16,7 +16,7 @@ class Manche extends React.Component {
 
 
     loadManche = (planning_id) => {
-        fetch('/api/plannings/manches/' + planning_id)
+        fetch('/api/plannings/'+planning_id+'/manches')
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});

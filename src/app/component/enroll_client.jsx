@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 class EnrollClient extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class EnrollClient extends React.Component {
     }
 
     loadManchesForPlanningId(planning_id) {
-        fetch('/api/plannings/manches/' + planning_id)
+        fetch('/api/plannings/' + planning_id +'/manches')
             .then((res) => res.json())
             .then((mancheResponse) => {
                 this.setState({manches: mancheResponse});

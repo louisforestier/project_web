@@ -7,10 +7,11 @@ app.use(cookieParser());
 app.use(express.urlencoded());
 
 const pgConnect = require('./pgConnect');
-const {apiRouter} = require("./router/app-router");
+const {visitorRouter} = require("./router/visitor-app-router");
+const {clientRouter} = require("./router/client-app-router");
+const {adminRouter} = require("./router/admin-app-router");
 const {v4} = require("uuid");
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 app.use(express.json());
 app.use('/', express.static('dist'));
@@ -46,6 +47,9 @@ app.post('/login',(req,res)=>{
                     }
                 })
             }
+            else {
+                res.redirect('/');
+            }
         });
 })
 
@@ -76,7 +80,9 @@ app.use('/*',(req,res,next)=> {
 })
 
 
-app.use('/api', apiRouter);
+app.use('/api', visitorRouter);
+app.use('/api', clientRouter);
+app.use('/api', adminRouter);
 
 
 app.get('/*', (req, res) => {

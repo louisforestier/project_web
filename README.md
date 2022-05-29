@@ -45,6 +45,6 @@ Cette partie concerne la partie back de l'application (NodeJS).
 Dans ce dossier server se trouve tout d'abord server.js et pgConnect.js.   
 `server.js` permet de vérifier le statut de l'utilisateur courant (visiteur ou client).   
 Quant à `pgConnect.js`, c'est là que sont faites toutes les requêtes à la base de données. Il peut s'agir de récupérer tous les clients de la base ou encore d'ajouter un planning en prenant en compte son identifiant, son nom et sa date.   
-Dans le répertoire `router`, le premier fichier `app-router.js` permet de rediriger vers client-router, inscription-router ou planning-router selon la vue active (c'est-à-dire la vue où se trouve l'utilisateur).   
+Dans le répertoire `router`, le premier fichier `visitor-app-router.js` permet de rediriger vers client-router, inscription-router ou planning-router selon la vue active (c'est-à-dire la vue où se trouve l'utilisateur).   
 Chacun de ces router récupère les éléments envoyés par le front via un chemin qui leur ait propre. Puis, selon la méthode (use, get, post, delete), ces éléments sont utilisés pour interroger la base via `pgConnect`. Ce fichier contient toutes les requêtes faites à la base et ces requêtes retournent une réponse au besoin. Le router retourne à son tour cette réponse et il laisse le soin aux vues et composants de traiter l'information.    
 
