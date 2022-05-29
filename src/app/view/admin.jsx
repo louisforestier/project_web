@@ -1,7 +1,6 @@
 import React from "react";
 import Add_planning from "../component/add_planning";
 import DelUser from "../component/delete_user";
-import Enroll_client from "../component/enroll_client";
 import EnrollClient from "../component/enroll_client";
 
 
@@ -47,7 +46,6 @@ class Admin extends React.Component {
         const {plannings} = this.state;
         return (
             <div>
-                <h1>Create planning</h1>
                 <Add_planning />
                 <EnrollClient/>
                 <DelUser />

@@ -17,7 +17,7 @@ router.post('/',(req,res)=>{
         const client = {id:v4(),username:username,password:password,admin:false,firstname:firstname,lastname:lastname}
         pgConnect.insertClient(client)
             .then(() => {
-                res.redirect('/signin')
+                res.sendStatus(200);
             })
     }
 
