@@ -40,6 +40,8 @@ const AddPlanning = () => {
     }
 
     return (
+        <div>
+        <h1>Create planning</h1>
         <form onSubmit={(e)=>{validate(e)}}>
             <label> Name </label>
             <input required type="text" value={name} onChange={(e) => setName(e.currentTarget.value)}/>
@@ -55,6 +57,7 @@ const AddPlanning = () => {
             })}
             <input type="submit" value="submit"></input>
         </form>
+        </div>
     )
 }
 export default AddPlanning;
