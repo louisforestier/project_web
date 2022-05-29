@@ -22,8 +22,8 @@ const AddPlanning = () => {
     const validate = (e)=>{
         e.preventDefault();
         if (name !=="") {
-            let bodyLocal = JSON.stringify({name, date});
-            fetch('/api/planning/', {
+            let bodyLocal = JSON.stringify({name, date, rounds});
+            fetch('/api/plannings/', {
                 method: "POST",
                 body: bodyLocal,
                 headers: {
@@ -31,7 +31,6 @@ const AddPlanning = () => {
                     'Content-Type': 'application/json'
                 }
             })
-                .then()
         }
     }
 

@@ -19,7 +19,6 @@ router.post('/', (req, res)=>{
         .then((value) => {
             res.send(value);
         })
-
 })
 
 //l'utilisateur courant est-il un administrateur ?
