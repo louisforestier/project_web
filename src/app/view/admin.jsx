@@ -9,14 +9,12 @@ class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tokens: [],
-            checked: false
+            tokens: []
         }
     }
 
     componentDidMount() {
         this.loadList();
-        this.loadUsers();
     }
 
 
@@ -31,14 +29,7 @@ class Admin extends React.Component {
             .then((planningResponse) => {this.setState({plannings:planningResponse})})
     }
 
-    loadUsers = (checked) => {
-        console.log("LOAD USERS with ", checked);
-        fetch('/api/clients/tokens/' + checked)
-            .then((res) => res.json())
-            .then((tokenResponse) => {
-                this.setState({tokens: tokenResponse});
-            })
-    }
+
 
     suppr(client) {
         fetch('/api/clients/' + client.id, {
@@ -51,11 +42,6 @@ class Admin extends React.Component {
             })
     }
 
-    handleChange = () => {
-        this.setState({checked: !this.state.checked});
-        this.loadUsers(this.state.checked);
-    };
-
     render() {
         const {clients} = this.state;
         const {plannings} = this.state;
@@ -64,12 +50,7 @@ class Admin extends React.Component {
                 <h1>Create planning</h1>
                 <Add_planning />
                 <EnrollClient/>
-                <h1>Disconnect a client</h1>
-                <label>
-                    Display expired users ?
-                    <input type="checkbox" checked={this.state.checked} onChange={this.handleChange} />
-                </label>
-                <DelUser load={this.loadUsers} tokens={this.state.tokens} checked={this.state.checked}/>
+                <DelUser />
             </div>
         )
     }
