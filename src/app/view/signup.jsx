@@ -42,31 +42,31 @@ class Signup extends React.Component {
                         <tr>
                             <td><label> User name </label></td>
                             <td>
-                                <input type="text" value={this.state.username} onChange={(e) => this.setState({username:e.currentTarget.value})}/>
+                                <input required type="text" value={this.state.username} onChange={(e) => this.setState({username:e.currentTarget.value})}/>
                             </td>
                         </tr>
                         <tr>
                             <td><label> Password </label></td>
                             <td>
-                                <input type="password" value={this.state.password} onChange={(e) => this.setState({password:e.currentTarget.value})}/>
+                                <input required type="password" value={this.state.password} onChange={(e) => this.setState({password:e.currentTarget.value})}/>
                             </td>
                         </tr>
                         <tr>
                             <td><label> Confirm password </label></td>
                             <td>
-                                <input type="password" value={this.state.cpassword} onChange={(e) => this.setState({cpassword:e.currentTarget.value})}/>
+                                <input required type="password" value={this.state.cpassword} onChange={(e) => this.setState({cpassword:e.currentTarget.value})}/>
                             </td>
                         </tr>
                         <tr>
                             <td><label> First name </label></td>
                             <td>
-                                <input type="text" value={this.state.firstname} onChange={(e) => this.setState({firstname:e.currentTarget.value})}/>
+                                <input required type="text" value={this.state.firstname} onChange={(e) => this.setState({firstname:e.currentTarget.value})}/>
                             </td>
                         </tr>
                         <tr>
                             <td><label> Last name </label></td>
                             <td>
-                                <input type="text" value={this.state.lastname} onChange={(e) => this.setState({lastname:e.currentTarget.value})}/>
+                                <input required type="text" value={this.state.lastname} onChange={(e) => this.setState({lastname:e.currentTarget.value})}/>
                             </td>
                         </tr>
                         <tr>
