@@ -1,5 +1,5 @@
 import React from "react";
-import Manche from "../component/manche";
+import PlanningItem from "../component/planning_item";
 
 
 class Planning extends React.Component {
@@ -28,29 +28,14 @@ class Planning extends React.Component {
         const {plannings} = this.state;
         return (
             <div>
-                <table>
-                    <caption>PLANNINGS</caption>
-                    <thead>
-                    <tr>
-                        <td>name</td>
-                        <td>date</td>
-                        <td>MANCHES</td>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <ul>
                     {
                         plannings && plannings
                             .map((planning) => {
-                                return <tr>
-                                    <td>{planning.name}</td>
-                                    <td>{planning.date}</td>
-                                    <td><Manche planningId={planning.id} mode={this.state.mode}/></td>
-                                </tr>
-
+                                return <PlanningItem planning={planning} mode={this.state.mode}/>
                             })
                     }
-                    </tbody>
-                </table>
+                </ul>
             </div>
         )
     }

@@ -1,0 +1,29 @@
+ul {
+    list-style-type: none;
+}
+
+.caret {
+    cursor: pointer;
+    user-select: none;
+}
+
+.caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+}
+
+.caret-down::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+}
+
+.activeTreeItem {
+    display: block;
+}
