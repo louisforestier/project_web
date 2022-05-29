@@ -17,30 +17,31 @@ router.post('/',(req,res)=>{
         const client = {id:v4(),username:username,password:password,admin:false,firstname:firstname,lastname:lastname}
         pgConnect.insertClient(client)
             .then(() => {
-                res.redirect('/signin')
+                res.sendStatus(200);
             })
     }
 
 })
 
-router.get('/tokens/:checked', (req, res)=> {
-    if (req.params.checked === "false") {
-        pgConnect.getTokens()
+router.get('/tokens', (req, res)=> {
+    const tokenID = req.cookies.MON_TOKEN;
+        pgConnect.getTokens(tokenID)
             .then((tokens) => {
                 console.log("router tokens")
                 res.send(tokens);
             })
-    }
-    else {
-        pgConnect.getUnexpiredToken()
-            .then((tokens) => {
-                console.log("router unexpired get")
-                res.send(tokens);
-            })
-    }
 })
 
-router.delete('/delete/:id', (req, res, next) => {
+router.get('/unexpiredtokens', (req, res)=> {
+    const tokenID = req.cookies.MON_TOKEN;
+    pgConnect.getUnexpiredToken(tokenID)
+        .then((tokens) => {
+            console.log("router unexpired get")
+            res.send(tokens);
+        })
+})
+
+router.delete('/token/:id', (req, res, next) => {
     console.log("router.delete");
     pgConnect.deleteTokenById(req.params.id)
         .then();
