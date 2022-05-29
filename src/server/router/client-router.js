@@ -43,7 +43,8 @@ adminApiRouter.get('/tokens/connected', (req, res)=> {
         })
 })
 
-adminApiRouter.delete('/token/:id', (req, res) => {
+adminApiRouter.delete('/tokens/:id', (req, res) => {
+    console.log("delete token");
     pgConnect.deleteTokenById(req.params.id)
         .then(() => {res.sendStatus(200)})
 })

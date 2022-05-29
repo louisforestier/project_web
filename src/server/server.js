@@ -92,19 +92,19 @@ app.get('/*', (req, res) => {
             console.error(err);
             return;
         } else {
-            let filename = 'visitor_app';
+            let filename = 'visitor';
             if (req.user)
                 if (req.user.admin)
-                    filename = 'admin_app';
-                else filename = 'client_app';
+                    filename = 'admin';
+                else filename = 'client';
             console.log(filename);
             let result = (process.env.MODE !== "prod")
                 ? html
-                    .replace('$js', 'http://localhost:1234/'+filename+'.js')
-                    .replace('$css', 'http://localhost:1234/client_app.css')
+                    .replace('$js', 'http://localhost:1234/'+filename+'_app.js')
+                    .replace('$css', 'http://localhost:1234/visitor_app.css')
                 : html
-                    .replace('$js', '/'+filename+'.min.js')
-                    .replace('$css', '/client_app.min.css')
+                    .replace('$js', '/'+filename+'/'+filename+'_app.js')
+                    .replace('$css', '/visitor/visitor_app.css')
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(result);
         }

@@ -16,10 +16,10 @@
   },
 
   "scripts": {
-    "start-web": "parcel src/app/client_app.jsx src/app/visitor_app.jsx src/app/admin_app.jsx --hmr-port 9998",
-    "start-dev": "nodemon src/server/server.js",
+    "start-web": "parcel src/app/visitor_app.jsx src/app/client_app.jsx src/app/admin_app.jsx --hmr-port 9998",
+    "start-dev": "MODE=dev nodemon src/server/server.js",
     "build": "parcel build --target visitor --target client --target admin",
-    "start": "node src/server/server.js"
+    "start": "MODE=prod node src/server/server.js"
   },
   "author": "",
   "license": "ISC",

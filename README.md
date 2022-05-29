@@ -14,10 +14,10 @@ Le projet web react_project peut s'ouvrir avec IntelliJ.
 Dans ce répertoire, effectuez la commande suivante : npm install   
 Pour accéder à la base de données hébergée sur CleverCloud, les informations de connexion se trouvent dans le fichier ".env".
 Pour lancer le projet, toujours depuis IntelliJ, faites un clic droit sur le fichier package.json -> Show npm Scripts. 
-Un nouvel encart apparaît d'où vous pourrez lancer start-web (client) et start-dev (serveur).   
+Un nouvel encart apparaît d'où vous pourrez lancer start-web (client) et start-dev (serveur).  
+Il est aussi possible de build l'application React avec le script build puis de lancer le serveur avec start. 
 L'adresse de l'application est localhost:3002.   
 Vous pouvez ouvrir votre navigateur à cet adresse et vous aurez accès à notre application.   
-Nous avons réussi à utiliser parcel build mais nous n'avons pas réussi à relier les fichiers générés au back. 
 
 # 2. Présentation
 Lorsque vous arriver sur l'application, vous pouvez voir le planning complet ainsi que les manches et le nombre de personnes inscrites. 
