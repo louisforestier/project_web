@@ -14,12 +14,17 @@ router.get('/', (req, res) => {
 //Ajouter un planning
 router.post('/', (req, res)=>{
     const new_planning = req.body;
-    const planning = {id:v4(), name:new_planning.name, date:new_planning.date};
+    const planning_id = v4()
+    const planning = {id:planning_id, name:new_planning.name, date:new_planning.date};
     pgConnect.insertPlanning(planning)
         .then((value) => {
             res.send(value);
         })
-
+    const i = 1
+    new_planning.rounds.forEach((round, i) => {
+        const new_round = {id: v4(), name: round.name, ordre: i+1, planning_id: planning_id}
+        pgConnect.insertManche(new_round)
+    })
 })
 
 //l'utilisateur courant est-il un administrateur ?

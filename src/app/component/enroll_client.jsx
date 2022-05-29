@@ -1,6 +1,4 @@
 import React, {useState} from "react";
-import clients from "../view/clients";
-
 
 class EnrollClient extends React.Component {
     constructor(props) {
