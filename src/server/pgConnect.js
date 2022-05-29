@@ -66,11 +66,12 @@ const getTokenById = async (id) => {
 }
 
 //Récupère tous les tokens
-const getTokens = async () => {
+const getTokens = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-all-tokens',
-            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id'
+            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and token.id != $1',
+            values:[id]
         });
         return res.rows;
     } catch (err) {
@@ -78,11 +79,12 @@ const getTokens = async () => {
     }
 }
 
-const getUnexpiredToken = async () => {
+const getUnexpiredToken = async (id) => {
     try {
         const res = await pgClient.query({
             name:'read-unexpired-tokens',
-            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and client.admin != true and expiration_time > clock_timestamp()'
+            text:'select token.id, username, client_id, expiration_time from client, token where client.id = token.client_id and expiration_time > clock_timestamp() and token.id != $1',
+            values:[id]
         });
         return res.rows;
     } catch (err) {

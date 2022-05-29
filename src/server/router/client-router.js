@@ -24,15 +24,16 @@ router.post('/',(req,res)=>{
 })
 
 router.get('/tokens/:checked', (req, res)=> {
+    const tokenID = req.cookies.MON_TOKEN;
     if (req.params.checked === "false") {
-        pgConnect.getTokens()
+        pgConnect.getTokens(tokenID)
             .then((tokens) => {
                 console.log("router tokens")
                 res.send(tokens);
             })
     }
     else {
-        pgConnect.getUnexpiredToken()
+        pgConnect.getUnexpiredToken(tokenID)
             .then((tokens) => {
                 console.log("router unexpired get")
                 res.send(tokens);
